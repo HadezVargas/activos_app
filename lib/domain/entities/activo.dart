@@ -17,7 +17,7 @@ class Activo {
     required this.id,
     required this.serial,
     required this.tag,
-    required this.isActive,
+    this.isActive = true,
     required this.images,
     required this.description,
   });
