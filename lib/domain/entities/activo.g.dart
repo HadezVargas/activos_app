@@ -17,34 +17,44 @@ const ActivoSchema = CollectionSchema(
   name: r'Activo',
   id: 7770542294908469559,
   properties: {
-    r'description': PropertySchema(
+    r'brand': PropertySchema(
       id: 0,
+      name: r'brand',
+      type: IsarType.string,
+    ),
+    r'description': PropertySchema(
+      id: 1,
       name: r'description',
       type: IsarType.stringList,
     ),
     r'id': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'id',
       type: IsarType.string,
     ),
     r'images': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'images',
       type: IsarType.stringList,
     ),
     r'isActive': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'isActive',
       type: IsarType.bool,
     ),
     r'serial': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'serial',
       type: IsarType.string,
     ),
     r'tag': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'tag',
+      type: IsarType.string,
+    ),
+    r'title': PropertySchema(
+      id: 7,
+      name: r'title',
       type: IsarType.string,
     )
   },
@@ -68,6 +78,7 @@ int _activoEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.brand.length * 3;
   bytesCount += 3 + object.description.length * 3;
   {
     for (var i = 0; i < object.description.length; i++) {
@@ -85,6 +96,7 @@ int _activoEstimateSize(
   }
   bytesCount += 3 + object.serial.length * 3;
   bytesCount += 3 + object.tag.length * 3;
+  bytesCount += 3 + object.title.length * 3;
   return bytesCount;
 }
 
@@ -94,12 +106,14 @@ void _activoSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeStringList(offsets[0], object.description);
-  writer.writeString(offsets[1], object.id);
-  writer.writeStringList(offsets[2], object.images);
-  writer.writeBool(offsets[3], object.isActive);
-  writer.writeString(offsets[4], object.serial);
-  writer.writeString(offsets[5], object.tag);
+  writer.writeString(offsets[0], object.brand);
+  writer.writeStringList(offsets[1], object.description);
+  writer.writeString(offsets[2], object.id);
+  writer.writeStringList(offsets[3], object.images);
+  writer.writeBool(offsets[4], object.isActive);
+  writer.writeString(offsets[5], object.serial);
+  writer.writeString(offsets[6], object.tag);
+  writer.writeString(offsets[7], object.title);
 }
 
 Activo _activoDeserialize(
@@ -109,12 +123,14 @@ Activo _activoDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Activo(
-    description: reader.readStringList(offsets[0]) ?? [],
-    id: reader.readString(offsets[1]),
-    images: reader.readStringList(offsets[2]) ?? [],
-    isActive: reader.readBool(offsets[3]),
-    serial: reader.readString(offsets[4]),
-    tag: reader.readString(offsets[5]),
+    brand: reader.readString(offsets[0]),
+    description: reader.readStringList(offsets[1]) ?? [],
+    id: reader.readString(offsets[2]),
+    images: reader.readStringList(offsets[3]) ?? [],
+    isActive: reader.readBoolOrNull(offsets[4]) ?? true,
+    serial: reader.readString(offsets[5]),
+    tag: reader.readString(offsets[6]),
+    title: reader.readString(offsets[7]),
   );
   object.isarId = id;
   return object;
@@ -128,16 +144,20 @@ P _activoDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readString(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
-    case 2:
       return (reader.readStringList(offset) ?? []) as P;
-    case 3:
-      return (reader.readBool(offset)) as P;
-    case 4:
+    case 2:
       return (reader.readString(offset)) as P;
+    case 3:
+      return (reader.readStringList(offset) ?? []) as P;
+    case 4:
+      return (reader.readBoolOrNull(offset) ?? true) as P;
     case 5:
+      return (reader.readString(offset)) as P;
+    case 6:
+      return (reader.readString(offset)) as P;
+    case 7:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -232,6 +252,136 @@ extension ActivoQueryWhere on QueryBuilder<Activo, Activo, QWhereClause> {
 }
 
 extension ActivoQueryFilter on QueryBuilder<Activo, Activo, QFilterCondition> {
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'brand',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'brand',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'brand',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'brand',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'brand',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'brand',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'brand',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'brand',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'brand',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> brandIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'brand',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<Activo, Activo, QAfterFilterCondition> descriptionElementEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1114,6 +1264,136 @@ extension ActivoQueryFilter on QueryBuilder<Activo, Activo, QFilterCondition> {
       ));
     });
   }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'title',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'title',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'title',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'title',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'title',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'title',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'title',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'title',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'title',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> titleIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'title',
+        value: '',
+      ));
+    });
+  }
 }
 
 extension ActivoQueryObject on QueryBuilder<Activo, Activo, QFilterCondition> {}
@@ -1121,6 +1401,18 @@ extension ActivoQueryObject on QueryBuilder<Activo, Activo, QFilterCondition> {}
 extension ActivoQueryLinks on QueryBuilder<Activo, Activo, QFilterCondition> {}
 
 extension ActivoQuerySortBy on QueryBuilder<Activo, Activo, QSortBy> {
+  QueryBuilder<Activo, Activo, QAfterSortBy> sortByBrand() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'brand', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterSortBy> sortByBrandDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'brand', Sort.desc);
+    });
+  }
+
   QueryBuilder<Activo, Activo, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1168,9 +1460,33 @@ extension ActivoQuerySortBy on QueryBuilder<Activo, Activo, QSortBy> {
       return query.addSortBy(r'tag', Sort.desc);
     });
   }
+
+  QueryBuilder<Activo, Activo, QAfterSortBy> sortByTitle() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'title', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterSortBy> sortByTitleDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'title', Sort.desc);
+    });
+  }
 }
 
 extension ActivoQuerySortThenBy on QueryBuilder<Activo, Activo, QSortThenBy> {
+  QueryBuilder<Activo, Activo, QAfterSortBy> thenByBrand() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'brand', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterSortBy> thenByBrandDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'brand', Sort.desc);
+    });
+  }
+
   QueryBuilder<Activo, Activo, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1230,9 +1546,28 @@ extension ActivoQuerySortThenBy on QueryBuilder<Activo, Activo, QSortThenBy> {
       return query.addSortBy(r'tag', Sort.desc);
     });
   }
+
+  QueryBuilder<Activo, Activo, QAfterSortBy> thenByTitle() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'title', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterSortBy> thenByTitleDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'title', Sort.desc);
+    });
+  }
 }
 
 extension ActivoQueryWhereDistinct on QueryBuilder<Activo, Activo, QDistinct> {
+  QueryBuilder<Activo, Activo, QDistinct> distinctByBrand(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'brand', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Activo, Activo, QDistinct> distinctByDescription() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'description');
@@ -1271,12 +1606,25 @@ extension ActivoQueryWhereDistinct on QueryBuilder<Activo, Activo, QDistinct> {
       return query.addDistinctBy(r'tag', caseSensitive: caseSensitive);
     });
   }
+
+  QueryBuilder<Activo, Activo, QDistinct> distinctByTitle(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'title', caseSensitive: caseSensitive);
+    });
+  }
 }
 
 extension ActivoQueryProperty on QueryBuilder<Activo, Activo, QQueryProperty> {
   QueryBuilder<Activo, int, QQueryOperations> isarIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isarId');
+    });
+  }
+
+  QueryBuilder<Activo, String, QQueryOperations> brandProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'brand');
     });
   }
 
@@ -1313,6 +1661,12 @@ extension ActivoQueryProperty on QueryBuilder<Activo, Activo, QQueryProperty> {
   QueryBuilder<Activo, String, QQueryOperations> tagProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'tag');
+    });
+  }
+
+  QueryBuilder<Activo, String, QQueryOperations> titleProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'title');
     });
   }
 }

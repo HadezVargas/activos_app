@@ -18,9 +18,9 @@ class LocalIsarDatasourceImpl extends ActivosDatasource {
   }
 
   @override
-  Future<void> createUpdateActivo(Activo activoLike) async {
+  Future<void> createUpdateActivo(Activo activo) async {
     final isar = await db;
-    isar.writeTxnSync(() => isar.activos.putSync(activoLike));
+    isar.writeTxnSync(() => isar.activos.putSync(activo));
   }
 
   @override

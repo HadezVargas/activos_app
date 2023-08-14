@@ -1,4 +1,5 @@
 import 'package:activos_app/config/theme/app_theme.dart';
+import 'package:activos_app/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,14 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       theme: AppTheme.getAppTheme(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      home: const HomeScreen()
     );
   }
 }

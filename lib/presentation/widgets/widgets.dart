@@ -1,0 +1,1 @@
+export 'shared/activo_card.dart';
