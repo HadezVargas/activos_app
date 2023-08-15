@@ -47,14 +47,14 @@ class _HomeViewState extends ConsumerState {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: MasonryGridView.count(
-        crossAxisCount: 2,
+        crossAxisCount: 1,
         mainAxisSpacing: 20,
         crossAxisSpacing: 35,
-        itemCount: 10, //TODO cambiar por esto: activosState.activos.length,
+        itemCount: activosState.activos.length,
         itemBuilder: (context, index) {
           final activo = activosState.activos[index];
           return GestureDetector(
-            onTap: () => context.pushNamed('activo', pathParameters: {'id': activo.id.toString()}),
+            onTap: () => context.pushNamed('activo', pathParameters: {'id': activo.isarId.toString()}),
             child: ActivoCard(activo: activo),
           );
         },

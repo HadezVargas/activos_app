@@ -4,7 +4,7 @@ import 'package:activos_app/domain/domain.dart';
 
 class ActivosDatasourcesImpl extends ActivosDatasource {
   @override
-  Future<void> createUpdateActivo(Activo activoLike) {
+  Future<void> createUpdateActivo(Activo activo) {
     // TODO: implement createUpdateActivo
     throw UnimplementedError();
   }

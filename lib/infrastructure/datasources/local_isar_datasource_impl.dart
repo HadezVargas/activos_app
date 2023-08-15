@@ -32,7 +32,7 @@ class LocalIsarDatasourceImpl extends ActivosDatasource {
   @override
   Future<Activo?> getActivoById(String id) async {
     final isar = await db;
-    return await isar.activos.filter().idEqualTo(id).findFirst();
+    return await isar.activos.filter().isarIdEqualTo(int.parse(id)).findFirst();
     
   }
 
