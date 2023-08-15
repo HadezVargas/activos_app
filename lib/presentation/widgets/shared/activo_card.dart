@@ -7,6 +7,44 @@ class ActivoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        _ImageViewer(images: activo.images),
+        Text(activo.title),
+        const SizedBox(
+          height: 20,
+        )
+      ],
+    );
+  }
+}
+
+class _ImageViewer extends StatelessWidget {
+  final List<String> images;
+  const _ImageViewer({required this.images});
+
+  @override
+  Widget build(BuildContext context) {
+    if (images.isEmpty) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Image.asset(
+          'assets/no-image.png',
+          fit: BoxFit.cover,
+          height: 250,
+        ),
+      );
+    }
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: FadeInImage(
+        fit: BoxFit.cover,
+        height: 250,
+        fadeOutDuration: const Duration(milliseconds: 100),
+        fadeInDuration: const Duration(milliseconds: 200),
+        placeholder: const AssetImage('assets/jar-loading.gif'),
+        image: NetworkImage(images.first),
+      ),
+    );
   }
 }

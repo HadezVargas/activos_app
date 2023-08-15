@@ -49,7 +49,7 @@ class _HomeViewState extends ConsumerState {
         crossAxisCount: 2,
         mainAxisSpacing: 20,
         crossAxisSpacing: 35,
-        itemCount: activosState.activos.length,
+        itemCount: 10,//TODO cambiar por esto: activosState.activos.length,
         itemBuilder: (context, index) {
           final activo = activosState.activos[index];
           return ActivoCard(activo: activo);
