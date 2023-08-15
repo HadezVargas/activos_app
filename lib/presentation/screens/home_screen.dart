@@ -3,6 +3,7 @@ import 'package:activos_app/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,10 +50,13 @@ class _HomeViewState extends ConsumerState {
         crossAxisCount: 2,
         mainAxisSpacing: 20,
         crossAxisSpacing: 35,
-        itemCount: 10,//TODO cambiar por esto: activosState.activos.length,
+        itemCount: 10, //TODO cambiar por esto: activosState.activos.length,
         itemBuilder: (context, index) {
           final activo = activosState.activos[index];
-          return ActivoCard(activo: activo);
+          return GestureDetector(
+            onTap: () => context.pushNamed('activo', pathParameters: {'id': activo.id.toString()}),
+            child: ActivoCard(activo: activo),
+          );
         },
       ),
     );
