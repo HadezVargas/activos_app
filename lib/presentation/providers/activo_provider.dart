@@ -28,7 +28,6 @@ class ActivoNotifier extends StateNotifier<ActivoState> {
 
     } catch (e) {
       // manejar producto no encontrado
-      print(e);
     }
   }
 }
