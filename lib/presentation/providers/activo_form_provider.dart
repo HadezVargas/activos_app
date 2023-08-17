@@ -1,6 +1,14 @@
 import 'package:activos_app/domain/domain.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
+final activoFormProvider = StateNotifierProvider.family<ActivoFormNotifier, ActivoFormState, Activo >((ref, activo) {
+  //TODO: createUpdateCallbak
+  return ActivoFormNotifier(
+    activo: activo,
+    //TODO: onSubmitCallback
+  );
+});
 class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
   ActivoFormNotifier({
     this.onSubmitCallback,
@@ -16,15 +24,30 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
           description: activo.description,
         ));
 
-  void onSerialChanged(String value)            => state = state.copyWith(serial: value);
-  void onTagChanged(String tag)               => state = state.copyWith(tag: tag);
-  void onTitleChanged(String title)             => state = state.copyWith(title: title);
-  void onBrandChanged(String brand)             => state = state.copyWith(brand: brand);
-  void onImagesChanged(List<String> images)      => state = state.copyWith(images: images);//TODO cambiar metodo para agregar a un listado
-  void onDescriptionChanged(List<String> description) => state = state.copyWith(description: description); //TODO cambiar metodo para agregar a un listado
-  
+  void onSerialChanged(String value) => state = state.copyWith(serial: value);
+  void onTagChanged(String tag) => state = state.copyWith(tag: tag);
+  void onTitleChanged(String title) => state = state.copyWith(title: title);
+  void onBrandChanged(String brand) => state = state.copyWith(brand: brand);
+  void onImagesChanged(List<String> images) => state = state.copyWith(
+      images: images); //TODO cambiar metodo para agregar a un listado
+  void onDescriptionChanged(List<String> description) => state = state.copyWith(
+      description: description); //TODO cambiar metodo para agregar a un listado
 
   final void Function(Map<String, dynamic> activoLike)? onSubmitCallback;
+
+  Future<bool> onFormSubmit() async {
+    if (onSubmitCallback == null) return false;
+
+    final Activo activo = Activo(
+        id: state.id,
+        serial: state.serial,
+        tag: state.tag,
+        title: state.title,
+        brand: state.brand,
+        images: state.images,
+        description: state.description);
+    return true;
+  }
 }
 
 class ActivoFormState {
