@@ -4,8 +4,7 @@ part 'activo.g.dart';
 
 @collection
 class Activo {
-  Id isarId = Isar.autoIncrement;
-  final String id;
+  final Id isarId;
   final String serial;
   final String tag;
   final String title;
@@ -15,7 +14,7 @@ class Activo {
   final List<String> description;
 
   Activo({
-    required this.id,
+    this.isarId = Isar.autoIncrement,
     required this.serial,
     required this.tag,
     required this.title,

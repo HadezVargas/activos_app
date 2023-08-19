@@ -18,13 +18,18 @@ class LocalIsarDatasourceImpl extends ActivosDatasource {
   }
 
   @override
-  Future<void> createUpdateActivo(Activo activo) async {
+  createUpdateActivo(Activo activo) async {
     final isar = await db;
-    isar.writeTxnSync(() => isar.activos.putSync(activo));
+      print(activo.isarId);
+    try {
+      isar.writeTxnSync(() => isar.activos.putSync(activo));
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
-  Future<void> deleteActivoById(int id) async{
+  Future<void> deleteActivoById(int id) async {
     final isar = await db;
     isar.writeTxnSync(() => isar.activos.deleteSync(id));
   }
@@ -33,7 +38,6 @@ class LocalIsarDatasourceImpl extends ActivosDatasource {
   Future<Activo?> getActivoById(String id) async {
     final isar = await db;
     return await isar.activos.filter().isarIdEqualTo(int.parse(id)).findFirst();
-    
   }
 
   @override

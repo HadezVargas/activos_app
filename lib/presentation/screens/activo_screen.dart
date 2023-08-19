@@ -14,161 +14,102 @@ class ActivoScreen extends ConsumerWidget {
     final activoState = ref.watch(activoProvider(activoId));
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Editar Activo'),
+        title: Text('Editar Activo $activoId'),
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.camera_alt_outlined))
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.camera_alt_outlined))
         ],
       ),
       body: activoState.isLoading
-        ? const FullLoader()
-        : _ActivoView(activo: activoState.activo!),
-      floatingActionButton: FloatingActionButton(onPressed: (){}, child: const Icon(Icons.save_as_outlined),),
+          ? const FullLoader()
+          : _ActivoView(activo: activoState.activo!),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (activoState.activo == null) return;
+          ref.read(activoFormProvider(activoState.activo!).notifier).onFormSubmit();
+        },
+        child: const Icon(Icons.save_as_outlined),
+      ),
     );
   }
 }
 
-class _ActivoView extends StatelessWidget {
+class _ActivoView extends ConsumerWidget {
   final Activo activo;
 
   const _ActivoView({required this.activo});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textStyles = Theme.of(context).textTheme;
+    final activoForm = ref.watch(activoFormProvider(activo));
 
     return ListView(
       children: [
         SizedBox(
           height: 250,
           width: 600,
-          child: _ImageGallery(images: activo.images),
+          child: _ImageGallery(images: activoForm.images),
         ),
         const SizedBox(height: 10),
-        Center(child: Text(activo.title, style: textStyles.titleSmall)),
+        Center(child: Text(activoForm.tag, style: textStyles.titleSmall)),
         const SizedBox(height: 10),
-        _ProductInformation(activo: activo),
+        _ActivoInformation(activo: activo),
       ],
     );
   }
 }
 
-class _ProductInformation extends ConsumerWidget {
+class _ActivoInformation extends ConsumerWidget {
   final Activo activo;
-  const _ProductInformation({required this.activo});
+  const _ActivoInformation({required this.activo});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final activoForm = ref.watch(activoFormProvider(activo));
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Generales'),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
-            label: 'Nombre',
-            initialValue: activo.title,
+            label: 'Etiqueta',
+            initialValue: activoForm.tag,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onTagChanged,
           ),
-          // CustomActivoField(
-          //   isTopField: true,
-          //   label: 'Slug',
-          //   initialValue: activo.slug,
-          // ),
-          // CustomActivoField(
-          //   isBottomField: true,
-          //   label: 'Precio',
-          //   keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          //   initialValue: activo.price.toString(),
-          // ),
           const SizedBox(height: 15),
-          // const Text('Extras'),
-          // _SizeSelector(selectedSizes: activo.sizes),
-          // const SizedBox(height: 5),
-          // _GenderSelector(selectedGender: activo.gender),
-          // const SizedBox(height: 15),
-          // CustomProductField(
-          //   isTopField: true,
-          //   label: 'Existencias',
-          //   keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          //   initialValue: activo.stock.toString(),
-          // ),
-          // CustomActivoField(
-          //   maxLines: 6,
-          //   label: 'Descripción',
-          //   keyboardType: TextInputType.multiline,
-          //   initialValue: activo.description,
-          // ),
-          // CustomActivoField(
-          //   isBottomField: true,
-          //   maxLines: 2,
-          //   label: 'Tags (Separados por coma)',
-          //   keyboardType: TextInputType.multiline,
-          //   initialValue: activo.tag,
-          // ),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Marca',
+            initialValue: activoForm.brand,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onBrandChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Serial',
+            initialValue: activoForm.serial,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onSerialChanged,
+          ),
+          const SizedBox(height: 15),
+          const CustomActivoField(
+            isTopField: true,
+            label: 'Descripcion',
+            initialValue: 'Ingrese una descripcion',
+          ),
+          const SizedBox(height: 15),
           const SizedBox(height: 100),
         ],
       ),
     );
   }
 }
-
-// class _SizeSelector extends StatelessWidget {
-//   final List<String> selectedSizes;
-//   final List<String> sizes = const ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
-
-//   const _SizeSelector({required this.selectedSizes});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SegmentedButton(
-//       showSelectedIcon: false,
-//       segments: sizes.map((size) {
-//         return ButtonSegment(
-//             value: size,
-//             label: Text(size, style: const TextStyle(fontSize: 10)));
-//       }).toList(),
-//       selected: Set.from(selectedSizes),
-//       onSelectionChanged: (newSelection) {
-//         print(newSelection);
-//       },
-//       multiSelectionEnabled: true,
-//     );
-//   }
-// }
-
-// class _GenderSelector extends StatelessWidget {
-//   final String selectedGender;
-//   final List<String> genders = const ['men', 'women', 'kid'];
-//   final List<IconData> genderIcons = const [
-//     Icons.man,
-//     Icons.woman,
-//     Icons.boy,
-//   ];
-
-//   const _GenderSelector({required this.selectedGender});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: SegmentedButton(
-//         multiSelectionEnabled: false,
-//         showSelectedIcon: false,
-//         style: const ButtonStyle(visualDensity: VisualDensity.compact),
-//         segments: genders.map((size) {
-//           return ButtonSegment(
-//               icon: Icon(genderIcons[genders.indexOf(size)]),
-//               value: size,
-//               label: Text(size, style: const TextStyle(fontSize: 12)));
-//         }).toList(),
-//         selected: {selectedGender},
-//         onSelectionChanged: (newSelection) {
-//           print(newSelection);
-//         },
-//       ),
-//     );
-//   }
-// }
 
 class _ImageGallery extends StatelessWidget {
   final List<String> images;
@@ -183,8 +124,7 @@ class _ImageGallery extends StatelessWidget {
           ? [
               ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  child: Image.asset('assets/no-image.png',
-                      fit: BoxFit.cover))
+                  child: Image.asset('assets/no-image.png', fit: BoxFit.cover))
             ]
           : images.map((e) {
               return ClipRRect(

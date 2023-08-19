@@ -1,20 +1,21 @@
 import 'package:activos_app/domain/domain.dart';
+import 'package:activos_app/presentation/providers/activos_repository_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
-final activoFormProvider = StateNotifierProvider.family<ActivoFormNotifier, ActivoFormState, Activo >((ref, activo) {
-  //TODO: createUpdateCallbak
+final activoFormProvider = StateNotifierProvider.autoDispose
+    .family<ActivoFormNotifier, ActivoFormState, Activo>((ref, activo) {
+  final createUpdateCallbak =
+      ref.watch(activosRepositoryProvider).createUpdateActivo;
   return ActivoFormNotifier(
-    activo: activo,
-    //TODO: onSubmitCallback
-  );
+      activo: activo, onSubmitCallback: createUpdateCallbak);
 });
+
 class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
   ActivoFormNotifier({
-    this.onSubmitCallback,
+    required this.onSubmitCallback,
     required Activo activo,
   }) : super(ActivoFormState(
-          id: activo.id,
+          isarId: activo.isarId,
           serial: activo.serial,
           tag: activo.tag,
           title: activo.title,
@@ -23,6 +24,7 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
           images: activo.images,
           description: activo.description,
         ));
+  final Function(Activo activo) onSubmitCallback;
 
   void onSerialChanged(String value) => state = state.copyWith(serial: value);
   void onTagChanged(String tag) => state = state.copyWith(tag: tag);
@@ -30,28 +32,29 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
   void onBrandChanged(String brand) => state = state.copyWith(brand: brand);
   void onImagesChanged(List<String> images) => state = state.copyWith(
       images: images); //TODO cambiar metodo para agregar a un listado
-  void onDescriptionChanged(List<String> description) => state = state.copyWith(
-      description: description); //TODO cambiar metodo para agregar a un listado
-
-  final void Function(Map<String, dynamic> activoLike)? onSubmitCallback;
+  void onDescriptionChanged(List<String> description) {}
 
   Future<bool> onFormSubmit() async {
-    if (onSubmitCallback == null) return false;
-
     final Activo activo = Activo(
-        id: state.id,
+        isarId: state.isarId,
         serial: state.serial,
         tag: state.tag,
         title: state.title,
         brand: state.brand,
         images: state.images,
         description: state.description);
-    return true;
+    try {
+      await onSubmitCallback(activo);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 }
 
 class ActivoFormState {
-  final String id;
+  final int isarId;
   final String serial;
   final String tag;
   final String title;
@@ -61,7 +64,8 @@ class ActivoFormState {
   final List<String> description;
 
   ActivoFormState(
-      {this.id = 'Sin id',
+      {
+      this.isarId = -1,
       this.serial = 'Sin serial',
       this.tag = 'Sin etiqueta',
       this.title = 'Sin titulo',
@@ -71,7 +75,7 @@ class ActivoFormState {
       this.description = const []});
 
   ActivoFormState copyWith({
-    String? id,
+    int? isarId,
     String? serial,
     String? tag,
     String? title,
@@ -81,7 +85,7 @@ class ActivoFormState {
     List<String>? description,
   }) {
     return ActivoFormState(
-      id: id ?? this.id,
+      isarId: isarId ?? this.isarId,
       serial: serial ?? this.serial,
       tag: tag ?? this.tag,
       title: title ?? this.title,

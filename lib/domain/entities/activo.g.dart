@@ -27,33 +27,28 @@ const ActivoSchema = CollectionSchema(
       name: r'description',
       type: IsarType.stringList,
     ),
-    r'id': PropertySchema(
-      id: 2,
-      name: r'id',
-      type: IsarType.string,
-    ),
     r'images': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'images',
       type: IsarType.stringList,
     ),
     r'isActive': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'isActive',
       type: IsarType.bool,
     ),
     r'serial': PropertySchema(
-      id: 5,
+      id: 4,
       name: r'serial',
       type: IsarType.string,
     ),
     r'tag': PropertySchema(
-      id: 6,
+      id: 5,
       name: r'tag',
       type: IsarType.string,
     ),
     r'title': PropertySchema(
-      id: 7,
+      id: 6,
       name: r'title',
       type: IsarType.string,
     )
@@ -86,7 +81,6 @@ int _activoEstimateSize(
       bytesCount += value.length * 3;
     }
   }
-  bytesCount += 3 + object.id.length * 3;
   bytesCount += 3 + object.images.length * 3;
   {
     for (var i = 0; i < object.images.length; i++) {
@@ -108,12 +102,11 @@ void _activoSerialize(
 ) {
   writer.writeString(offsets[0], object.brand);
   writer.writeStringList(offsets[1], object.description);
-  writer.writeString(offsets[2], object.id);
-  writer.writeStringList(offsets[3], object.images);
-  writer.writeBool(offsets[4], object.isActive);
-  writer.writeString(offsets[5], object.serial);
-  writer.writeString(offsets[6], object.tag);
-  writer.writeString(offsets[7], object.title);
+  writer.writeStringList(offsets[2], object.images);
+  writer.writeBool(offsets[3], object.isActive);
+  writer.writeString(offsets[4], object.serial);
+  writer.writeString(offsets[5], object.tag);
+  writer.writeString(offsets[6], object.title);
 }
 
 Activo _activoDeserialize(
@@ -125,14 +118,13 @@ Activo _activoDeserialize(
   final object = Activo(
     brand: reader.readString(offsets[0]),
     description: reader.readStringList(offsets[1]) ?? [],
-    id: reader.readString(offsets[2]),
-    images: reader.readStringList(offsets[3]) ?? [],
-    isActive: reader.readBoolOrNull(offsets[4]) ?? true,
-    serial: reader.readString(offsets[5]),
-    tag: reader.readString(offsets[6]),
-    title: reader.readString(offsets[7]),
+    images: reader.readStringList(offsets[2]) ?? [],
+    isActive: reader.readBoolOrNull(offsets[3]) ?? true,
+    isarId: id,
+    serial: reader.readString(offsets[4]),
+    tag: reader.readString(offsets[5]),
+    title: reader.readString(offsets[6]),
   );
-  object.isarId = id;
   return object;
 }
 
@@ -148,16 +140,14 @@ P _activoDeserializeProp<P>(
     case 1:
       return (reader.readStringList(offset) ?? []) as P;
     case 2:
-      return (reader.readString(offset)) as P;
-    case 3:
       return (reader.readStringList(offset) ?? []) as P;
-    case 4:
+    case 3:
       return (reader.readBoolOrNull(offset) ?? true) as P;
+    case 4:
+      return (reader.readString(offset)) as P;
     case 5:
       return (reader.readString(offset)) as P;
     case 6:
-      return (reader.readString(offset)) as P;
-    case 7:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -172,9 +162,7 @@ List<IsarLinkBase<dynamic>> _activoGetLinks(Activo object) {
   return [];
 }
 
-void _activoAttach(IsarCollection<dynamic> col, Id id, Activo object) {
-  object.isarId = id;
-}
+void _activoAttach(IsarCollection<dynamic> col, Id id, Activo object) {}
 
 extension ActivoQueryWhereSort on QueryBuilder<Activo, Activo, QWhere> {
   QueryBuilder<Activo, Activo, QAfterWhere> anyIsarId() {
@@ -599,134 +587,6 @@ extension ActivoQueryFilter on QueryBuilder<Activo, Activo, QFilterCondition> {
         upper,
         includeUpper,
       );
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idContains(String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'id',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idMatches(String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'id',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> idIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'id',
-        value: '',
-      ));
     });
   }
 
@@ -1413,18 +1273,6 @@ extension ActivoQuerySortBy on QueryBuilder<Activo, Activo, QSortBy> {
     });
   }
 
-  QueryBuilder<Activo, Activo, QAfterSortBy> sortById() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterSortBy> sortByIdDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
-    });
-  }
-
   QueryBuilder<Activo, Activo, QAfterSortBy> sortByIsActive() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isActive', Sort.asc);
@@ -1484,18 +1332,6 @@ extension ActivoQuerySortThenBy on QueryBuilder<Activo, Activo, QSortThenBy> {
   QueryBuilder<Activo, Activo, QAfterSortBy> thenByBrandDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'brand', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterSortBy> thenById() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterSortBy> thenByIdDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
     });
   }
 
@@ -1574,13 +1410,6 @@ extension ActivoQueryWhereDistinct on QueryBuilder<Activo, Activo, QDistinct> {
     });
   }
 
-  QueryBuilder<Activo, Activo, QDistinct> distinctById(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'id', caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<Activo, Activo, QDistinct> distinctByImages() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'images');
@@ -1631,12 +1460,6 @@ extension ActivoQueryProperty on QueryBuilder<Activo, Activo, QQueryProperty> {
   QueryBuilder<Activo, List<String>, QQueryOperations> descriptionProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'description');
-    });
-  }
-
-  QueryBuilder<Activo, String, QQueryOperations> idProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
     });
   }
 

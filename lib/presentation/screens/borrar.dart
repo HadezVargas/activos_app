@@ -53,7 +53,7 @@ class _TextListWidgetState extends State<TextListWidget> {
 class TextEntryForm extends StatefulWidget {
   final Function(String) onTextAdded;
 
-  TextEntryForm(this.onTextAdded, {super.key});
+  const TextEntryForm(this.onTextAdded, {super.key});
 
   @override
   _TextEntryFormState createState() => _TextEntryFormState();
