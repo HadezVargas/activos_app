@@ -6,22 +6,22 @@ class ActivosRepositoryImpl extends ActivosRepository {
   ActivosRepositoryImpl(this.datasource);
 
   @override
-  Future<Activo> createUpdateActivo(Map<String, dynamic> activoLike) {
+  Future<void> createUpdateActivo(Activo activoLike) {
     return datasource.createUpdateActivo(activoLike);
   }
 
   @override
-  Future<Activo> deleteActivoById(String id) {
+  Future<void> deleteActivoById(int id) {
     return datasource.deleteActivoById(id);
   }
 
   @override
-  Future<Activo> getActivoById(String id) {
+  Future<Activo?> getActivoById(String id) {
     return datasource.getActivoById(id);
   }
 
   @override
-  Future<List<Activo>> getActivos() {
-    return datasource.getActivos();
+  Future<List<Activo>> getActivos({int limit = 10, int offset = 0}) {
+    return datasource.getActivos(limit: limit, offset: offset);
   }
 }

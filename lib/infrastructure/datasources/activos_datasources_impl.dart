@@ -4,26 +4,22 @@ import 'package:activos_app/domain/domain.dart';
 
 class ActivosDatasourcesImpl extends ActivosDatasource {
   @override
-  Future<Activo> createUpdateActivo(Map<String, dynamic> activoLike) {
-    // TODO: implement createUpdateActivo
+  Future<void> createUpdateActivo(Activo activo) {
     throw UnimplementedError();
   }
 
   @override
-  Future<Activo> deleteActivoById(String id) {
-    // TODO: implement deleteActivoById
+  Future<Activo> deleteActivoById(int id) {
     throw UnimplementedError();
   }
 
   @override
   Future<Activo> getActivoById(String id) {
-    // TODO: implement getActivoById
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Activo>> getActivos() {
-    // TODO: implement getActivos
+  Future<List<Activo>> getActivos({int limit = 10, int offset = 0}) {
     throw UnimplementedError();
   }
 }

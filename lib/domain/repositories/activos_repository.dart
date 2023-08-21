@@ -1,8 +1,8 @@
-import 'package:activos_app/domain/entities/activos.dart';
+import 'package:activos_app/domain/entities/activo.dart';
 
 abstract class ActivosRepository {
-  Future<Activo> getActivoById(String id);
-  Future<Activo> deleteActivoById(String id);
-  Future<List<Activo>> getActivos();
-  Future<Activo> createUpdateActivo(Map<String, dynamic> activoLike);
+  Future<Activo?> getActivoById(String id);
+  Future<void> deleteActivoById(int id);
+  Future<List<Activo>> getActivos({int limit = 10, int offset = 0});
+  Future<void> createUpdateActivo(Activo activoLike);
 }
