@@ -10,7 +10,7 @@ class ActivoCard extends StatelessWidget {
     return Column(
       children: [
         _ImageViewer(images: activo.images),
-        Text(activo.title),
+        Text(activo.tAG),
         const SizedBox(
           height: 20,
         )

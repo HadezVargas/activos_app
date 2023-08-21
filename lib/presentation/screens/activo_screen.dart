@@ -52,7 +52,7 @@ class _ActivoView extends ConsumerWidget {
           child: _ImageGallery(images: activoForm.images),
         ),
         const SizedBox(height: 10),
-        Center(child: Text(activoForm.tag, style: textStyles.titleSmall)),
+        Center(child: Text(activoForm.tAG, style: textStyles.titleSmall)),
         const SizedBox(height: 10),
         _ActivoInformation(activo: activo),
       ],
@@ -77,25 +77,25 @@ class _ActivoInformation extends ConsumerWidget {
           CustomActivoField(
             isTopField: true,
             label: 'Etiqueta',
-            initialValue: activoForm.tag,
+            initialValue: activoForm.tAG,
             onChanged:
-                ref.read(activoFormProvider(activo).notifier).onTagChanged,
+                ref.read(activoFormProvider(activo).notifier).onTAGChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
-            label: 'Marca',
-            initialValue: activoForm.brand,
+            label: 'Ubicacion',
+            initialValue: activoForm.descriptionLocation,
             onChanged:
-                ref.read(activoFormProvider(activo).notifier).onBrandChanged,
+                ref.read(activoFormProvider(activo).notifier).onDescriptionLocationChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Serial',
-            initialValue: activoForm.serial,
+            initialValue: activoForm.series,
             onChanged:
-                ref.read(activoFormProvider(activo).notifier).onSerialChanged,
+                ref.read(activoFormProvider(activo).notifier).onSeriesChanged,
           ),
           const SizedBox(height: 15),
           const CustomActivoField(
