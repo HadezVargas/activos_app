@@ -9,6 +9,12 @@ class ActivoScreen extends ConsumerWidget {
   final String activoId;
   const ActivoScreen({super.key, required this.activoId});
 
+  void showSnackbar(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Activos actualizados')));
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activoState = ref.watch(activoProvider(activoId));
@@ -26,7 +32,15 @@ class ActivoScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           if (activoState.activo == null) return;
-          ref.read(activoFormProvider(activoState.activo!).notifier).onFormSubmit();
+          ref
+              .read(activoFormProvider(activoState.activo!).notifier)
+              .onFormSubmit()
+              .then((value) {
+            if (!value) {
+              return;
+            }
+            showSnackbar(context);
+          });
         },
         child: const Icon(Icons.save_as_outlined),
       ),
@@ -86,8 +100,9 @@ class _ActivoInformation extends ConsumerWidget {
             isTopField: true,
             label: 'Ubicacion',
             initialValue: activoForm.descriptionLocation,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onDescriptionLocationChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onDescriptionLocationChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
