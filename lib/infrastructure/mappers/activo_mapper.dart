@@ -5,7 +5,7 @@ import '../../domain/domain.dart';
 class ActivoMapper {
   static fromJson(Map<String, dynamic> json) => Activo(
         criticisms: json["criticisms"],
-        active: json["active"],
+        numberActiveMaximo: json["numberActiveMaximo"],
         numberJDE: json["numberJDE"],
         description: json["description"],
         tAG: json["tAG"],

@@ -6,7 +6,7 @@ class ActivosRepositoryImpl extends ActivosRepository {
   ActivosRepositoryImpl(this.datasource);
 
   @override
-  Future<void> createUpdateActivo(Activo activoLike) {
+  Future<int> createUpdateActivo(Activo activoLike) {
     return datasource.createUpdateActivo(activoLike);
   }
 

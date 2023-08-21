@@ -4,5 +4,5 @@ abstract class ActivosRepository {
   Future<Activo?> getActivoById(String id);
   Future<void> deleteActivoById(int id);
   Future<List<Activo>> getActivos({int limit = 10, int offset = 0});
-  Future<void> createUpdateActivo(Activo activoLike);
+  Future<int> createUpdateActivo(Activo activoLike);
 }

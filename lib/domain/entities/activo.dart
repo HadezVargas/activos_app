@@ -6,7 +6,7 @@ part 'activo.g.dart';
 class Activo {
   final Id           isarId;
   final int          criticisms;
-  final String       active;
+  final String       numberActiveMaximo;
   final String       numberJDE;
   final String       description;
   final String       tAG;
@@ -28,7 +28,7 @@ class Activo {
   Activo({
     this.isarId = Isar.autoIncrement,
     required this.criticisms,
-    required this.active,
+    required this.numberActiveMaximo,
     required this.numberJDE,
     required this.description,
     required this.tAG,

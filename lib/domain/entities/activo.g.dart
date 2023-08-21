@@ -17,64 +17,64 @@ const ActivoSchema = CollectionSchema(
   name: r'Activo',
   id: 7770542294908469559,
   properties: {
-    r'active': PropertySchema(
-      id: 0,
-      name: r'active',
-      type: IsarType.string,
-    ),
     r'addressInternalLocation': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'addressInternalLocation',
       type: IsarType.string,
     ),
     r'classification': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'classification',
       type: IsarType.string,
     ),
     r'criticalityDescription': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'criticalityDescription',
       type: IsarType.string,
     ),
     r'criticisms': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'criticisms',
       type: IsarType.long,
     ),
     r'description': PropertySchema(
-      id: 5,
+      id: 4,
       name: r'description',
       type: IsarType.string,
     ),
     r'descriptionLocation': PropertySchema(
-      id: 6,
+      id: 5,
       name: r'descriptionLocation',
       type: IsarType.string,
     ),
     r'father': PropertySchema(
-      id: 7,
+      id: 6,
       name: r'father',
       type: IsarType.string,
     ),
     r'iPSIGMA': PropertySchema(
-      id: 8,
+      id: 7,
       name: r'iPSIGMA',
       type: IsarType.string,
     ),
     r'images': PropertySchema(
-      id: 9,
+      id: 8,
       name: r'images',
       type: IsarType.stringList,
     ),
     r'installation': PropertySchema(
-      id: 10,
+      id: 9,
       name: r'installation',
       type: IsarType.string,
     ),
     r'location': PropertySchema(
-      id: 11,
+      id: 10,
       name: r'location',
+      type: IsarType.string,
+    ),
+    r'numberActiveMaximo': PropertySchema(
+      id: 11,
+      name: r'numberActiveMaximo',
       type: IsarType.string,
     ),
     r'numberJDE': PropertySchema(
@@ -133,7 +133,6 @@ int _activoEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.active.length * 3;
   bytesCount += 3 + object.addressInternalLocation.length * 3;
   bytesCount += 3 + object.classification.length * 3;
   bytesCount += 3 + object.criticalityDescription.length * 3;
@@ -150,6 +149,7 @@ int _activoEstimateSize(
   }
   bytesCount += 3 + object.installation.length * 3;
   bytesCount += 3 + object.location.length * 3;
+  bytesCount += 3 + object.numberActiveMaximo.length * 3;
   bytesCount += 3 + object.numberJDE.length * 3;
   bytesCount += 3 + object.operationalNumber.length * 3;
   bytesCount += 3 + object.plant.length * 3;
@@ -166,18 +166,18 @@ void _activoSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.active);
-  writer.writeString(offsets[1], object.addressInternalLocation);
-  writer.writeString(offsets[2], object.classification);
-  writer.writeString(offsets[3], object.criticalityDescription);
-  writer.writeLong(offsets[4], object.criticisms);
-  writer.writeString(offsets[5], object.description);
-  writer.writeString(offsets[6], object.descriptionLocation);
-  writer.writeString(offsets[7], object.father);
-  writer.writeString(offsets[8], object.iPSIGMA);
-  writer.writeStringList(offsets[9], object.images);
-  writer.writeString(offsets[10], object.installation);
-  writer.writeString(offsets[11], object.location);
+  writer.writeString(offsets[0], object.addressInternalLocation);
+  writer.writeString(offsets[1], object.classification);
+  writer.writeString(offsets[2], object.criticalityDescription);
+  writer.writeLong(offsets[3], object.criticisms);
+  writer.writeString(offsets[4], object.description);
+  writer.writeString(offsets[5], object.descriptionLocation);
+  writer.writeString(offsets[6], object.father);
+  writer.writeString(offsets[7], object.iPSIGMA);
+  writer.writeStringList(offsets[8], object.images);
+  writer.writeString(offsets[9], object.installation);
+  writer.writeString(offsets[10], object.location);
+  writer.writeString(offsets[11], object.numberActiveMaximo);
   writer.writeString(offsets[12], object.numberJDE);
   writer.writeString(offsets[13], object.operationalNumber);
   writer.writeString(offsets[14], object.plant);
@@ -194,19 +194,19 @@ Activo _activoDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Activo(
-    active: reader.readString(offsets[0]),
-    addressInternalLocation: reader.readString(offsets[1]),
-    classification: reader.readString(offsets[2]),
-    criticalityDescription: reader.readString(offsets[3]),
-    criticisms: reader.readLong(offsets[4]),
-    description: reader.readString(offsets[5]),
-    descriptionLocation: reader.readString(offsets[6]),
-    father: reader.readString(offsets[7]),
-    iPSIGMA: reader.readString(offsets[8]),
-    images: reader.readStringList(offsets[9]) ?? [],
-    installation: reader.readString(offsets[10]),
+    addressInternalLocation: reader.readString(offsets[0]),
+    classification: reader.readString(offsets[1]),
+    criticalityDescription: reader.readString(offsets[2]),
+    criticisms: reader.readLong(offsets[3]),
+    description: reader.readString(offsets[4]),
+    descriptionLocation: reader.readString(offsets[5]),
+    father: reader.readString(offsets[6]),
+    iPSIGMA: reader.readString(offsets[7]),
+    images: reader.readStringList(offsets[8]) ?? [],
+    installation: reader.readString(offsets[9]),
     isarId: id,
-    location: reader.readString(offsets[11]),
+    location: reader.readString(offsets[10]),
+    numberActiveMaximo: reader.readString(offsets[11]),
     numberJDE: reader.readString(offsets[12]),
     operationalNumber: reader.readString(offsets[13]),
     plant: reader.readString(offsets[14]),
@@ -232,9 +232,9 @@ P _activoDeserializeProp<P>(
     case 2:
       return (reader.readString(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
-    case 4:
       return (reader.readLong(offset)) as P;
+    case 4:
+      return (reader.readString(offset)) as P;
     case 5:
       return (reader.readString(offset)) as P;
     case 6:
@@ -242,9 +242,9 @@ P _activoDeserializeProp<P>(
     case 7:
       return (reader.readString(offset)) as P;
     case 8:
-      return (reader.readString(offset)) as P;
-    case 9:
       return (reader.readStringList(offset) ?? []) as P;
+    case 9:
+      return (reader.readString(offset)) as P;
     case 10:
       return (reader.readString(offset)) as P;
     case 11:
@@ -354,136 +354,6 @@ extension ActivoQueryWhere on QueryBuilder<Activo, Activo, QWhereClause> {
 }
 
 extension ActivoQueryFilter on QueryBuilder<Activo, Activo, QFilterCondition> {
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'active',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'active',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'active',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'active',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'active',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'active',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'active',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'active',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'active',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterFilterCondition> activeIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'active',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<Activo, Activo, QAfterFilterCondition>
       addressInternalLocationEqualTo(
     String value, {
@@ -1997,6 +1867,141 @@ extension ActivoQueryFilter on QueryBuilder<Activo, Activo, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> numberActiveMaximoEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'numberActiveMaximo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition>
+      numberActiveMaximoGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'numberActiveMaximo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition>
+      numberActiveMaximoLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'numberActiveMaximo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> numberActiveMaximoBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'numberActiveMaximo',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition>
+      numberActiveMaximoStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'numberActiveMaximo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition>
+      numberActiveMaximoEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'numberActiveMaximo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition>
+      numberActiveMaximoContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'numberActiveMaximo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition> numberActiveMaximoMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'numberActiveMaximo',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition>
+      numberActiveMaximoIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'numberActiveMaximo',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterFilterCondition>
+      numberActiveMaximoIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'numberActiveMaximo',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<Activo, Activo, QAfterFilterCondition> numberJDEEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -2923,18 +2928,6 @@ extension ActivoQueryObject on QueryBuilder<Activo, Activo, QFilterCondition> {}
 extension ActivoQueryLinks on QueryBuilder<Activo, Activo, QFilterCondition> {}
 
 extension ActivoQuerySortBy on QueryBuilder<Activo, Activo, QSortBy> {
-  QueryBuilder<Activo, Activo, QAfterSortBy> sortByActive() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'active', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterSortBy> sortByActiveDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'active', Sort.desc);
-    });
-  }
-
   QueryBuilder<Activo, Activo, QAfterSortBy> sortByAddressInternalLocation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'addressInternalLocation', Sort.asc);
@@ -3057,6 +3050,18 @@ extension ActivoQuerySortBy on QueryBuilder<Activo, Activo, QSortBy> {
     });
   }
 
+  QueryBuilder<Activo, Activo, QAfterSortBy> sortByNumberActiveMaximo() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'numberActiveMaximo', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterSortBy> sortByNumberActiveMaximoDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'numberActiveMaximo', Sort.desc);
+    });
+  }
+
   QueryBuilder<Activo, Activo, QAfterSortBy> sortByNumberJDE() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'numberJDE', Sort.asc);
@@ -3145,18 +3150,6 @@ extension ActivoQuerySortBy on QueryBuilder<Activo, Activo, QSortBy> {
 }
 
 extension ActivoQuerySortThenBy on QueryBuilder<Activo, Activo, QSortThenBy> {
-  QueryBuilder<Activo, Activo, QAfterSortBy> thenByActive() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'active', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Activo, Activo, QAfterSortBy> thenByActiveDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'active', Sort.desc);
-    });
-  }
-
   QueryBuilder<Activo, Activo, QAfterSortBy> thenByAddressInternalLocation() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'addressInternalLocation', Sort.asc);
@@ -3291,6 +3284,18 @@ extension ActivoQuerySortThenBy on QueryBuilder<Activo, Activo, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Activo, Activo, QAfterSortBy> thenByNumberActiveMaximo() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'numberActiveMaximo', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Activo, Activo, QAfterSortBy> thenByNumberActiveMaximoDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'numberActiveMaximo', Sort.desc);
+    });
+  }
+
   QueryBuilder<Activo, Activo, QAfterSortBy> thenByNumberJDE() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'numberJDE', Sort.asc);
@@ -3379,13 +3384,6 @@ extension ActivoQuerySortThenBy on QueryBuilder<Activo, Activo, QSortThenBy> {
 }
 
 extension ActivoQueryWhereDistinct on QueryBuilder<Activo, Activo, QDistinct> {
-  QueryBuilder<Activo, Activo, QDistinct> distinctByActive(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'active', caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<Activo, Activo, QDistinct> distinctByAddressInternalLocation(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3465,6 +3463,14 @@ extension ActivoQueryWhereDistinct on QueryBuilder<Activo, Activo, QDistinct> {
     });
   }
 
+  QueryBuilder<Activo, Activo, QDistinct> distinctByNumberActiveMaximo(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'numberActiveMaximo',
+          caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Activo, Activo, QDistinct> distinctByNumberJDE(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3521,12 +3527,6 @@ extension ActivoQueryProperty on QueryBuilder<Activo, Activo, QQueryProperty> {
   QueryBuilder<Activo, int, QQueryOperations> isarIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isarId');
-    });
-  }
-
-  QueryBuilder<Activo, String, QQueryOperations> activeProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'active');
     });
   }
 
@@ -3595,6 +3595,12 @@ extension ActivoQueryProperty on QueryBuilder<Activo, Activo, QQueryProperty> {
   QueryBuilder<Activo, String, QQueryOperations> locationProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'location');
+    });
+  }
+
+  QueryBuilder<Activo, String, QQueryOperations> numberActiveMaximoProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'numberActiveMaximo');
     });
   }
 

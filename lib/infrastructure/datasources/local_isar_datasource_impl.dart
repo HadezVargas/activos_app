@@ -18,13 +18,13 @@ class LocalIsarDatasourceImpl extends ActivosDatasource {
   }
 
   @override
-  createUpdateActivo(Activo activo) async {
+  Future<int> createUpdateActivo(Activo activo) async {
     final isar = await db;
-      print(activo.isarId);
     try {
-      isar.writeTxnSync(() => isar.activos.putSync(activo));
+      final isarId = isar.writeTxnSync(() => isar.activos.putSync(activo));
+      return isarId;
     } catch (e) {
-      print(e);
+      throw Exception();
     }
   }
 

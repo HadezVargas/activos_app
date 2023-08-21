@@ -14,6 +14,24 @@ class ActivosNotifier extends StateNotifier<ActivosState> {
     loadNextPage();
   }
 
+  Future<bool> createOrUpdateActive(Activo activo) async {
+    try {
+      final isarId = await activosRepository.createUpdateActivo(activo);
+      final isActiveInList =
+          state.activos.any((element) => element.isarId == isarId);
+      if (!isActiveInList) {
+        state = state.copyWith(activos: [...state.activos, activo]);
+        return true;
+      }
+      state = state.copyWith(
+        activos: state.activos.map((element) => (element.isarId == isarId) ? activo : element).toList()
+      );
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future loadNextPage() async {
     if (state.isLoading || state.isLastPage) return;
     state = state.copyWith(isLoading: true);
@@ -27,7 +45,10 @@ class ActivosNotifier extends StateNotifier<ActivosState> {
         isLastPage: false,
         isLoading: false,
         offset: state.offset + 10,
-        activos: [...activos, ...state.activos]);
+        activos: [
+          ...state.activos,
+          ...activos,
+        ]);
   }
 }
 
