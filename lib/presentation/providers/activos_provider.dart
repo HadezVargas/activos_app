@@ -14,12 +14,16 @@ class ActivosNotifier extends StateNotifier<ActivosState> {
     loadNextPage();
   }
 
+
+  
+
   Future<bool> createOrUpdateActive(Activo activo) async {
     try {
       final isarId = await activosRepository.createUpdateActivo(activo);
       final isActiveInList =
           state.activos.any((element) => element.isarId == isarId);
       if (!isActiveInList) {
+        activo.isarId = isarId;
         state = state.copyWith(activos: [...state.activos, activo]);
         return true;
       }

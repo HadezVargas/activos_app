@@ -5,16 +5,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Center(child: Text('ACTIVOS'))),
       body: const _HomeView(),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {}, label: const Text('Ingrese Activo')),
+          onPressed: () {
+            context.pushNamed('activo',
+                pathParameters: {'id': 'new'});
+          },
+          label: const Text('Ingrese Activo')),
     );
   }
 }
@@ -54,7 +63,8 @@ class _HomeViewState extends ConsumerState {
         itemBuilder: (context, index) {
           final activo = activosState.activos[index];
           return GestureDetector(
-            onTap: () => context.pushNamed('activo', pathParameters: {'id': activo.isarId.toString()}),
+            onTap: () => context.pushNamed('activo',
+                pathParameters: {'id': activo.isarId.toString()}),
             child: ActivoCard(activo: activo),
           );
         },

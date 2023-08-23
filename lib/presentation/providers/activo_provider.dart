@@ -1,6 +1,7 @@
 import 'package:activos_app/domain/domain.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:isar/isar.dart';
 
 final activoProvider = StateNotifierProvider.autoDispose
     .family<ActivoNotifier, ActivoState, String>((ref, activoId) {
@@ -18,14 +19,41 @@ class ActivoNotifier extends StateNotifier<ActivoState> {
     loadActivo();
   }
 
+  Activo _emptyActivo() {
+    return Activo(
+        isarId: Isar.autoIncrement,
+        criticisms: 4,
+        numberActiveMaximo: 'numberActiveMaximo',
+        numberJDE: 'numberJDE',
+        description: 'description',
+        tAG: 'tAG',
+        location: 'location',
+        descriptionLocation: 'descriptionLocation',
+        subRegionCommuneCorregimiento: 'subRegionCommuneCorregimiento',
+        installation: 'installation',
+        father: 'father',
+        state: 'state',
+        iPSIGMA: 'iPSIGMA',
+        series: 'series',
+        criticalityDescription: 'criticalityDescription',
+        operationalNumber: 'operationalNumber',
+        classification: 'classification',
+        addressInternalLocation: 'addressInternalLocation',
+        plant: 'plant',
+        images: const []);
+  }
+
   Future<void> loadActivo() async {
     try {
+      if (state.id == 'new') {
+        state = state.copyWith(isLoading: false, activo: _emptyActivo());
+        return;
+      }
       final activo = await activosRepository.getActivoById(state.id);
       state = state.copyWith(
         isLoading: false,
         activo: activo,
       );
-
     } catch (e) {
       // manejar producto no encontrado
     }

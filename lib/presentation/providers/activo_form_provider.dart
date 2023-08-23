@@ -102,14 +102,13 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
       await onSubmitCallback(activo);
       return true;
     } catch (e) {
-      print(e);
       return false;
     }
   }
 }
 
 class ActivoFormState {
-  final int isarId;
+  int isarId;
   final int criticisms;
   final String numberActiveMaximo;
   final String numberJDE;

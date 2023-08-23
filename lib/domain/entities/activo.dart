@@ -4,7 +4,7 @@ part 'activo.g.dart';
 
 @collection
 class Activo {
-  final Id           isarId;
+  Id           isarId;
   final int          criticisms;
   final String       numberActiveMaximo;
   final String       numberJDE;
