@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:activos_app/domain/domain.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +45,7 @@ class _ImageViewer extends StatelessWidget {
         fadeOutDuration: const Duration(milliseconds: 100),
         fadeInDuration: const Duration(milliseconds: 200),
         placeholder: const AssetImage('assets/jar-loading.gif'),
-        image: NetworkImage(images.first),
+        image: FileImage(File(images.first)),
       ),
     );
   }

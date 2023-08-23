@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:activos_app/domain/domain.dart';
+import 'package:activos_app/infrastructure/infrastructure.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +28,15 @@ class ActivoScreen extends ConsumerWidget {
           title: Text('Editar Activo $activoId'),
           actions: [
             IconButton(
-                onPressed: () {}, icon: const Icon(Icons.camera_alt_outlined))
+                onPressed: () async {
+                  final photoPath =
+                      await CameraGalleryServiceImpl().takePhoto();
+                  if (photoPath == null) return;
+                  ref
+                      .read(activoFormProvider(activoState.activo!).notifier)
+                      .onImagesChanged(File(photoPath));
+                },
+                icon: const Icon(Icons.camera_alt_outlined))
           ],
         ),
         body: activoState.isLoading
@@ -135,22 +146,31 @@ class _ImageGallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (images.isEmpty) {
+      return ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          child: Image.asset('assets/no-image.png', fit: BoxFit.cover));
+    }
     return PageView(
       scrollDirection: Axis.horizontal,
       controller: PageController(viewportFraction: 0.7),
-      children: images.isEmpty
-          ? [
-              ClipRRect(
+      children: images.map((e) {
+              late ImageProvider imageProvider;
+              if (e.startsWith('http')) {
+                imageProvider = NetworkImage(e);
+              } else {
+                imageProvider = FileImage(File(e));
+              }
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  child: Image.asset('assets/no-image.png', fit: BoxFit.cover))
-            ]
-          : images.map((e) {
-              return ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                child: Image.network(
-                  e,
-                  fit: BoxFit.cover,
-                ),
+                  child: FadeInImage(
+                    placeholder: const AssetImage('assets/jar-loading.gif'),
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                  )
               );
             }).toList(),
     );

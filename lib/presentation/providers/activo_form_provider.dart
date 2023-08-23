@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:activos_app/domain/domain.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 
 final activoFormProvider = StateNotifierProvider.autoDispose
     .family<ActivoFormNotifier, ActivoFormState, Activo>((ref, activo) {
@@ -72,8 +75,15 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
   void onAddressInternalLocationChanged(String addressInternalLocation) =>
       state = state.copyWith(addressInternalLocation: addressInternalLocation);
   void onPlantChanged(String plant) => state = state.copyWith(plant: plant);
-  void onImagesChanged(List<String> images) =>
-      state = state.copyWith(images: images);
+  void onImagesChanged(File photoPath) async {
+    final appDir = await getApplicationDocumentsDirectory();
+    final fileName = '${state.tAG}${state.numberOfImage}.jpg';
+    state = state.copyWith(numberOfImage: state.numberOfImage + 1);
+    final savedImage = await photoPath.copy('${appDir.path}/$fileName');
+    state = state.copyWith(images: [...state.images, savedImage.path]);
+  }
+
+ 
 
   Future<bool> onFormSubmit() async {
     final Activo activo = Activo(
@@ -109,6 +119,7 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
 
 class ActivoFormState {
   int isarId;
+  final int numberOfImage;
   final int criticisms;
   final String numberActiveMaximo;
   final String numberJDE;
@@ -131,6 +142,7 @@ class ActivoFormState {
 
   ActivoFormState({
     this.isarId = Isar.autoIncrement,
+    this.numberOfImage = 0,
     this.criticisms = 4,
     this.numberActiveMaximo = 'sin dato',
     this.numberJDE = 'sin dato',
@@ -154,6 +166,7 @@ class ActivoFormState {
 
   ActivoFormState copyWith({
     int? isarId,
+    int? numberOfImage,
     int? criticisms,
     String? numberActiveMaximo,
     String? numberJDE,
@@ -176,6 +189,7 @@ class ActivoFormState {
   }) {
     return ActivoFormState(
       isarId: isarId ?? this.isarId,
+      numberOfImage: numberOfImage ?? this.numberOfImage,
       criticisms: criticisms ?? this.criticisms,
       numberActiveMaximo: numberActiveMaximo ?? this.numberActiveMaximo,
       numberJDE: numberJDE ?? this.numberJDE,
