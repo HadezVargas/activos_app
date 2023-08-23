@@ -18,31 +18,34 @@ class ActivoScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activoState = ref.watch(activoProvider(activoId));
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Editar Activo $activoId'),
-        actions: [
-          IconButton(
-              onPressed: () {}, icon: const Icon(Icons.camera_alt_outlined))
-        ],
-      ),
-      body: activoState.isLoading
-          ? const FullLoader()
-          : _ActivoView(activo: activoState.activo!),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (activoState.activo == null) return;
-          ref
-              .read(activoFormProvider(activoState.activo!).notifier)
-              .onFormSubmit()
-              .then((value) {
-            if (!value) {
-              return;
-            }
-            showSnackbar(context);
-          });
-        },
-        child: const Icon(Icons.save_as_outlined),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Editar Activo $activoId'),
+          actions: [
+            IconButton(
+                onPressed: () {}, icon: const Icon(Icons.camera_alt_outlined))
+          ],
+        ),
+        body: activoState.isLoading
+            ? const FullLoader()
+            : _ActivoView(activo: activoState.activo!),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            if (activoState.activo == null) return;
+            ref
+                .read(activoFormProvider(activoState.activo!).notifier)
+                .onFormSubmit()
+                .then((value) {
+              if (!value) {
+                return;
+              }
+              showSnackbar(context);
+            });
+          },
+          child: const Icon(Icons.save_as_outlined),
+        ),
       ),
     );
   }
