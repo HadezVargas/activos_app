@@ -16,7 +16,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text('ACTIVOS'))),
+      appBar: AppBar(
+        title: const Center(child: Text('ACTIVOS')),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.pushNamed('excel');
+            },
+            icon: const Icon(Icons.download),
+          ),
+        ],
+      ),
       body: const _HomeView(),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {

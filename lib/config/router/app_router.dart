@@ -16,5 +16,11 @@ class AppRouter {
         activoId: state.pathParameters['id'] ?? 'no-id',
       ),
     ),
+    GoRoute(
+      path: '/excel',
+      name: 'excel',
+      builder: (context, state) => const ExcelScreen(
+      ),
+    ),
   ]);
 }
