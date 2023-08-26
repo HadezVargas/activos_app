@@ -1,34 +1,16 @@
+
+
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 import '../../domain/domain.dart';
-import '../providers/providers.dart';
 
-class ExcelScreen extends ConsumerWidget {
-  const ExcelScreen({Key? key}) : super(key: key);
-
+class ExcelGeneratorServiceImpl extends ExcelGeneratorService {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final activosState = ref.watch(activosProvider);
-    return Scaffold(
-      appBar: AppBar(title: const Center(child: Text('Excel Screen'))),
-      body: Center(
-          child: ElevatedButton(
-        onPressed: () {
-          if(activosState.activos.isEmpty) return;
-          crearExcel(activosState.activos);
-        },
-        child: const Text('Crear Excel'),
-      )),
-    );
-  }
-
-  crearExcel(List<Activo> activos) async {
+  Future<void> generateExcelFile(List<Activo> activos) async{
     final Workbook workbook = Workbook();
     final Worksheet sheet = workbook.worksheets[0];
 
@@ -92,4 +74,6 @@ class ExcelScreen extends ConsumerWidget {
     await file.writeAsBytes(bytes, flush: true);
     OpenFilex.open(path);
   }
+
+  
 }
