@@ -66,7 +66,7 @@ class _HomeViewState extends ConsumerState {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: MasonryGridView.count(
-        crossAxisCount: 1,
+        crossAxisCount: 2,
         mainAxisSpacing: 20,
         crossAxisSpacing: 35,
         itemCount: activosState.activos.length,
