@@ -4,7 +4,7 @@ part 'activo.g.dart';
 
 @collection
 class Activo {
-  final Id isarId;
+  12final Id isarId;
   final String serial;
   final String tag;
   final String title;
