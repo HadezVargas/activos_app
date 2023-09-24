@@ -12,6 +12,9 @@ class ExcelGeneratorServiceImpl extends ExcelGeneratorService {
     final Workbook workbook = Workbook();
     final Worksheet sheet = workbook.worksheets[0];
 
+    final Style style = workbook.styles.add('generalStyle');
+    style.borders.all.lineStyle = LineStyle.thin;
+
     final hedersLabels = [
       'numberActiveMaximo',
       'numberJDE',
@@ -83,6 +86,11 @@ class ExcelGeneratorServiceImpl extends ExcelGeneratorService {
       rowIndex++;
       columnIndex = 19;
     }
+
+    final Range range = sheet.getRangeByIndex(rowIndex, columnIndex);
+    range.cellStyle = style;
+    range.autoFit();
+  
 
     final List<int> bytes = workbook.saveAsStream();
     workbook.dispose();
