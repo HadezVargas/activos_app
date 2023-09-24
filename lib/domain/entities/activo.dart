@@ -8,7 +8,9 @@ class Activo {
   final int          criticisms;
   final String       numberActiveMaximo;
   final String       numberJDE;
-  final String       description;
+  final String       description1;
+  final String       description2;
+  final String       description3;
   final String       tAG;
   final String       location;
   final String       descriptionLocation;
@@ -30,7 +32,9 @@ class Activo {
     required this.criticisms,
     required this.numberActiveMaximo,
     required this.numberJDE,
-    required this.description,
+    required this.description1,
+    required this.description2,
+    required this.description3,
     required this.tAG,
     required this.location,
     required this.descriptionLocation,

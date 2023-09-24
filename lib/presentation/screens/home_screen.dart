@@ -1,3 +1,4 @@
+import 'package:activos_app/domain/domain.dart';
 import 'package:activos_app/infrastructure/infrastructure.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:activos_app/presentation/widgets/widgets.dart';
@@ -14,9 +15,11 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class HomeScreenState extends ConsumerState {
+  final ExcelGeneratorService exelGenetator =
+      ExcelGeneratorServiceSyncfusionImpl();
   @override
   Widget build(BuildContext context) {
-  final activosState = ref.watch(activosProvider);
+    final activosState = ref.watch(activosProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('ACTIVOS')),
@@ -26,22 +29,19 @@ class HomeScreenState extends ConsumerState {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton.extended(
-            heroTag: 'new',
-            onPressed: () {
-              context.pushNamed('activo',
-                  pathParameters: {'id': 'new'});
-            },
-            label: const Text('Ingrese Activo')
-          ),
+              heroTag: 'new',
+              onPressed: () {
+                context.pushNamed('activo', pathParameters: {'id': 'new'});
+              },
+              label: const Text('Ingrese Activo')),
           const SizedBox(height: 10),
           FloatingActionButton.extended(
-            heroTag: 'excel',
-            onPressed: () {
-              if (activosState.activos.isEmpty) return;
-              ExcelGeneratorServiceImpl().generateExcelFile(activosState.activos);
-            },
-            label: const Text('Crear Excel')
-          ),
+              heroTag: 'excel',
+              onPressed: () {
+                if (activosState.activos.isEmpty) return;
+                exelGenetator.generateExcelFile(activosState.activos);
+              },
+              label: const Text('Crear Excel')),
         ],
       ),
     );

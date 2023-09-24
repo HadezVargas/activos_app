@@ -6,7 +6,7 @@ import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 import '../../domain/domain.dart';
 
-class ExcelGeneratorServiceImpl extends ExcelGeneratorService {
+class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
   @override
   Future<void> generateExcelFile(List<Activo> activos) async {
     final Workbook workbook = Workbook();
@@ -18,7 +18,9 @@ class ExcelGeneratorServiceImpl extends ExcelGeneratorService {
     final hedersLabels = [
       'numberActiveMaximo',
       'numberJDE',
-      'description',
+      'description1',
+      'description2',
+      'description3',
       'tAG',
       'location',
       'descriptionLocation',
@@ -47,7 +49,9 @@ class ExcelGeneratorServiceImpl extends ExcelGeneratorService {
     for (var activo in activos) {
       sheet.getRangeByIndex(rowIndex, 1).setText(activo.numberActiveMaximo);
       sheet.getRangeByIndex(rowIndex, 2).setText(activo.numberJDE);
-      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description);
+      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description1);
+      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description2);
+      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description3);
       sheet.getRangeByIndex(rowIndex, 4).setText(activo.tAG);
       sheet.getRangeByIndex(rowIndex, 5).setText(activo.location);
       sheet.getRangeByIndex(rowIndex, 6).setText(activo.descriptionLocation);

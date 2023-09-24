@@ -62,7 +62,9 @@ class ExcelScreen extends ConsumerWidget {
     for (var activo in activos) {
       sheet.getRangeByIndex(rowIndex, 1).setText(activo.numberActiveMaximo);
       sheet.getRangeByIndex(rowIndex, 2).setText(activo.numberJDE);
-      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description);
+      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description1);
+      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description2);
+      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description3);
       sheet.getRangeByIndex(rowIndex, 4).setText(activo.tAG);
       sheet.getRangeByIndex(rowIndex, 5).setText(activo.location);
       sheet.getRangeByIndex(rowIndex, 6).setText(activo.descriptionLocation);

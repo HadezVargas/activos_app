@@ -23,7 +23,9 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
           criticisms: activo.criticisms,
           numberActiveMaximo: activo.numberActiveMaximo,
           numberJDE: activo.numberJDE,
-          description: activo.description,
+          description1: activo.description1,
+          description2: activo.description2,
+          description3: activo.description3,
           tAG: activo.tAG,
           location: activo.location,
           descriptionLocation: activo.descriptionLocation,
@@ -48,8 +50,9 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
       state = state.copyWith(numberActiveMaximo: numberActiveMaximo);
   void onNumberJDEChanged(String numberJDE) =>
       state = state.copyWith(numberJDE: numberJDE);
-  void onDescriptionChanged(String description) =>
-      state = state.copyWith(description: description);
+  void onDescription1Changed(String description) => state = state.copyWith(description1: description);
+  void onDescription2Changed(String description) => state = state.copyWith(description2: description);
+  void onDescription3Changed(String description) => state = state.copyWith(description3: description);
   void onTAGChanged(String tAG) => state = state.copyWith(tAG: tAG);
   void onLocationChanged(String location) =>
       state = state.copyWith(location: location);
@@ -91,7 +94,9 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
       criticisms: state.criticisms,
       numberActiveMaximo: state.numberActiveMaximo,
       numberJDE: state.numberJDE,
-      description: state.description,
+      description1: state.description1,
+      description2: state.description2,
+      description3: state.description3,
       tAG: state.tAG,
       location: state.location,
       descriptionLocation: state.descriptionLocation,
@@ -123,7 +128,9 @@ class ActivoFormState {
   final int criticisms;
   final String numberActiveMaximo;
   final String numberJDE;
-  final String description;
+  final String description1;
+  final String description2;
+  final String description3;
   final String tAG;
   final String location;
   final String descriptionLocation;
@@ -146,7 +153,9 @@ class ActivoFormState {
     this.criticisms = 4,
     this.numberActiveMaximo = 'sin dato',
     this.numberJDE = 'sin dato',
-    this.description = 'sin dato',
+    this.description1 = 'sin dato',
+    this.description2 = 'sin dato',
+    this.description3 = 'sin dato',
     this.tAG = 'sin dato',
     this.location = 'sin dato',
     this.descriptionLocation = 'sin dato',
@@ -170,7 +179,9 @@ class ActivoFormState {
     int? criticisms,
     String? numberActiveMaximo,
     String? numberJDE,
-    String? description,
+    String? description1,
+    String? description2,
+    String? description3,
     String? tAG,
     String? location,
     String? descriptionLocation,
@@ -193,7 +204,9 @@ class ActivoFormState {
       criticisms: criticisms ?? this.criticisms,
       numberActiveMaximo: numberActiveMaximo ?? this.numberActiveMaximo,
       numberJDE: numberJDE ?? this.numberJDE,
-      description: description ?? this.description,
+      description1: description1 ?? this.description1,
+      description2: description2 ?? this.description2,
+      description3: description3 ?? this.description3,
       tAG: tAG ?? this.tAG,
       location: location ?? this.location,
       descriptionLocation: descriptionLocation ?? this.descriptionLocation,
