@@ -83,7 +83,7 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
       state = state.copyWith(addressInternalLocation: addressInternalLocation);
   void onPlantChanged(String plant) => state = state.copyWith(plant: plant);
   void onImagesChanged(File photoPath) async {
-    final uuid = Uuid();
+    const uuid = Uuid();
     final appDir = await getApplicationDocumentsDirectory();
     final fileName = "${uuid.v1()}.jpg";
     state = state.copyWith(numberOfImage: state.numberOfImage + 1);
