@@ -47,35 +47,36 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
     }
 
     int rowIndex = 2;
-    int columnIndex = 19;
+    int columnIndex = 22;
     int pictureIndex = 0;
     for (var activo in activos) {
-      sheet.getRangeByIndex(rowIndex, 1).setText(activo.numberActiveMaximo);
-      sheet.getRangeByIndex(rowIndex, 2).setText(activo.numberJDE);
-      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description1);
-      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description2);
-      sheet.getRangeByIndex(rowIndex, 3).setText(activo.description3);
-      sheet.getRangeByIndex(rowIndex, 4).setText(activo.tAG);
-      sheet.getRangeByIndex(rowIndex, 5).setText(activo.location);
-      sheet.getRangeByIndex(rowIndex, 6).setText(activo.descriptionLocation);
+      sheet.getRangeByIndex(rowIndex, 1).setText(activo.numberJDE);
+      sheet.getRangeByIndex(rowIndex, 2).setText(activo.numberActiveMaximo);
+      sheet.getRangeByIndex(rowIndex, 3).setText(activo.tAG);
+      sheet.getRangeByIndex(rowIndex, 4).setText(activo.series);
+      sheet.getRangeByIndex(rowIndex, 5).setText(activo.description1);
+      sheet.getRangeByIndex(rowIndex, 6).setText(activo.description2);
+      sheet.getRangeByIndex(rowIndex, 7).setText(activo.description3);
+      sheet.getRangeByIndex(rowIndex, 8).setText(activo.plant);
       sheet
-          .getRangeByIndex(rowIndex, 7)
-          .setText(activo.subRegionCommuneCorregimiento);
-      sheet.getRangeByIndex(rowIndex, 8).setText(activo.installation);
-      sheet.getRangeByIndex(rowIndex, 9).setText(activo.father);
-      sheet.getRangeByIndex(rowIndex, 10).setText(activo.state);
-      sheet.getRangeByIndex(rowIndex, 11).setText(activo.iPSIGMA);
-      sheet.getRangeByIndex(rowIndex, 12).setText(activo.series);
-      sheet.getRangeByIndex(rowIndex, 13).setText(activo.criticisms.toString());
-      sheet
-          .getRangeByIndex(rowIndex, 14)
+          .getRangeByIndex(rowIndex, 9)
           .setText(activo.criticalityDescription);
-      sheet.getRangeByIndex(rowIndex, 15).setText(activo.operationalNumber);
-      sheet.getRangeByIndex(rowIndex, 16).setText(activo.classification);
+      sheet.getRangeByIndex(rowIndex, 10).setText(activo.location);
+      sheet.getRangeByIndex(rowIndex, 11).setText(activo.descriptionLocation);
+      sheet.getRangeByIndex(rowIndex, 12).setText(activo.subRegionCommuneCorregimiento);
+      sheet.getRangeByIndex(rowIndex, 13).setText(activo.installation);
+      sheet.getRangeByIndex(rowIndex, 14).setText(activo.series);
+      sheet.getRangeByIndex(rowIndex, 15).setText(activo.father);
       sheet
-          .getRangeByIndex(rowIndex, 17)
-          .setText(activo.addressInternalLocation);
-      sheet.getRangeByIndex(rowIndex, 18).setText(activo.plant);
+          .getRangeByIndex(rowIndex, 16)
+          .setText(activo.state);
+      sheet.getRangeByIndex(rowIndex, 17).setText(activo.iPSIGMA);
+      sheet.getRangeByIndex(rowIndex, 18).setText(activo.operationalNumber);
+      sheet
+          .getRangeByIndex(rowIndex, 19)
+          .setText(activo.classification);
+      sheet.getRangeByIndex(rowIndex, 20).setText(activo.addressInternalLocation);
+      sheet.getRangeByIndex(rowIndex, 21).setText(activo.operationalNumber);
       // sheet.getRangeByIndex(rowIndex, 19).setText(activo.images.join(', '));
       for (var image in activo.images) {
         final List<int> bytes = await File(image).readAsBytes();
@@ -91,11 +92,11 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
         pictureIndex++;
       }
       rowIndex++;
-      // final Range range = sheet.getRangeByIndex(rowIndex, columnIndex);
-      // range.autoFit();
+      final Range range = sheet.getRangeByIndex(rowIndex, columnIndex);
+      range.autoFit();
       // range.columnWidth = 14;
       // range.rowHeight = 88;
-      columnIndex = 19;
+      columnIndex = 22;
     }
 
     final List<int> bytes = workbook.saveAsStream();

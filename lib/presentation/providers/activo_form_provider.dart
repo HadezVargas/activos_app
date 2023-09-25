@@ -51,12 +51,12 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
       state = state.copyWith(numberActiveMaximo: numberActiveMaximo);
   void onNumberJDEChanged(String numberJDE) =>
       state = state.copyWith(numberJDE: numberJDE);
-  void onDescription1Changed(String description) =>
-      state = state.copyWith(description1: description);
-  void onDescription2Changed(String description) =>
-      state = state.copyWith(description2: description);
-  void onDescription3Changed(String description) =>
-      state = state.copyWith(description3: description);
+  void onDescription1Changed(String description1) =>
+      state = state.copyWith(description1: description1);
+  void onDescription2Changed(String description2) =>
+      state = state.copyWith(description2: description2);
+  void onDescription3Changed(String description3) =>
+      state = state.copyWith(description3: description3);
   void onTAGChanged(String tAG) => state = state.copyWith(tAG: tAG);
   void onLocationChanged(String location) =>
       state = state.copyWith(location: location);
