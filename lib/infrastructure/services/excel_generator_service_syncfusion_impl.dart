@@ -41,6 +41,9 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
 
     for (var i = 0; i < hedersLabels.length; i++) {
       sheet.getRangeByIndex(1, i + 1).setText(hedersLabels[i]);
+      final Range titulos = sheet.getRangeByIndex(1, i + 1);
+      final Style style = titulos.cellStyle;
+      style.bold = true;
     }
 
     int rowIndex = 2;
@@ -88,13 +91,12 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
         pictureIndex++;
       }
       rowIndex++;
+      // final Range range = sheet.getRangeByIndex(rowIndex, columnIndex);
+      // range.autoFit();
+      // range.columnWidth = 14;
+      // range.rowHeight = 88;
       columnIndex = 19;
     }
-
-    final Range range = sheet.getRangeByIndex(rowIndex, columnIndex);
-    range.cellStyle = style;
-    range.autoFit();
-  
 
     final List<int> bytes = workbook.saveAsStream();
     workbook.dispose();

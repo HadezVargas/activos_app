@@ -41,16 +41,23 @@ dependencies:
   open_filex: ^4.3.2
   path_provider: ^2.1.0
   syncfusion_flutter_xlsio: ^22.2.10
+  uuid: ^3.0.6
 
 dev_dependencies:
   build_runner: ^2.4.6
   custom_lint: ^0.5.2
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   isar_generator: ^3.1.0+1
   riverpod_lint: ^2.0.1
 
+flutter_launcher_icons:
+  image_path_android: "assets/1024.png"
+  image_path_ios: "assets/1024.png"
+  android: true
+  ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.

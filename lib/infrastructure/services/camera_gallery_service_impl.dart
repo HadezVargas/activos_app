@@ -8,7 +8,6 @@ class CameraGalleryServiceImpl extends CameraGalleryService {
     final pickedFile = await _picker.pickImage(
       source: ImageSource.gallery,
       imageQuality: 50,
-      preferredCameraDevice: CameraDevice.rear,
     );
     if (pickedFile == null) return null;
     return pickedFile.path;
