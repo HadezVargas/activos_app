@@ -16,12 +16,15 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
     style.borders.all.lineStyle = LineStyle.thin;
 
     final hedersLabels = [
-      'numberActiveMaximo',
       'numberJDE',
+      'numberActiveMaximo',
+      'tAG',
+      'Numero de serie',
       'description1',
       'description2',
       'description3',
-      'tAG',
+      'plant',
+      'criticalityDescription',
       'location',
       'descriptionLocation',
       'subRegionCommuneCorregimiento',
@@ -29,13 +32,10 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
       'father',
       'state',
       'iPSIGMA',
-      'series',
-      'criticisms',
-      'criticalityDescription',
       'operationalNumber',
       'classification',
       'addressInternalLocation',
-      'plant',
+      'criticisms',
       'images',
     ];
 
