@@ -80,7 +80,7 @@ class _ActivoView extends ConsumerWidget {
           child: _ImageGallery(images: activoForm.images),
         ),
         const SizedBox(height: 10),
-        Center(child: Text(activoForm.tAG, style: textStyles.titleSmall)),
+        Center(child: Text(activoForm.description1, style: textStyles.titleSmall)),
         const SizedBox(height: 10),
         _ActivoInformation(activo: activo),
       ],
@@ -104,6 +104,22 @@ class _ActivoInformation extends ConsumerWidget {
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
+            label: 'Numero JDE',
+            initialValue: activoForm.numberJDE,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onNumberJDEChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Numero MAXIMO',
+            initialValue: activoForm.numberActiveMaximo,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onNumberActiveMaximoChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
             label: 'Etiqueta',
             initialValue: activoForm.tAG,
             onChanged:
@@ -112,27 +128,134 @@ class _ActivoInformation extends ConsumerWidget {
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
-            label: 'Ubicacion',
-            initialValue: activoForm.descriptionLocation,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onDescriptionLocationChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'Serial',
+            label: 'Número de serie',
             initialValue: activoForm.series,
             onChanged:
                 ref.read(activoFormProvider(activo).notifier).onSeriesChanged,
           ),
           const SizedBox(height: 15),
-          const CustomActivoField(
+          CustomActivoField(
             isTopField: true,
-            label: 'Descripcion',
-            initialValue: 'Ingrese una descripcion',
+            label: 'Descripción 1',
+            initialValue: activoForm.description1,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onDescription1Changed,
           ),
           const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Descripción 2',
+            initialValue: activoForm.description2,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onDescription2Changed,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Descripción 3',
+            initialValue: activoForm.description3,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onDescription3Changed,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Planta',
+            initialValue: activoForm.plant,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onPlantChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Criticidad',
+            initialValue: activoForm.criticalityDescription,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onCriticalityDescriptionChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Localización',
+            initialValue: activoForm.location,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onLocationChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Descripción Localización',
+            initialValue: activoForm.descriptionLocation,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onDescriptionLocationChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Subregión, comuna, corregimiento ',
+            initialValue: activoForm.subRegionCommuneCorregimiento,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onSubRegionCommuneCorregimientoChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Instalación',
+            initialValue: activoForm.installation,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onInstallationChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Padre',
+            initialValue: activoForm.father,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onFatherChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Estado',
+            initialValue: activoForm.estado,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onEstadoChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'iPSIGMA',
+            initialValue: activoForm.iPSIGMA,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onIPSIGMAChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Número operacional',
+            initialValue: activoForm.operationalNumber,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onOperationalNumberChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Clasificación',
+            initialValue: activoForm.classification,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onClassificationChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Dirección localización interna',
+            initialValue: activoForm.addressInternalLocation,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onAddressInternalLocationChanged,
+          ),
+          const SizedBox(height: 15),
+          
           const SizedBox(height: 100),
         ],
       ),

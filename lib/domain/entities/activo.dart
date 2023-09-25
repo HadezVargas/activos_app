@@ -6,25 +6,25 @@ part 'activo.g.dart';
 class Activo {
   Id           isarId;
   final int          criticisms;
-  final String       numberActiveMaximo;
-  final String       numberJDE;
-  final String       description1;
-  final String       description2;
-  final String       description3;
-  final String       tAG;
-  final String       location;
-  final String       descriptionLocation;
-  final String       subRegionCommuneCorregimiento;
-  final String       installation;
-  final String       father;
-  final String       state;
-  final String       iPSIGMA;
-  final String       series;
-  final String       criticalityDescription;
-  final String       operationalNumber;
-  final String       classification;
-  final String       addressInternalLocation;
-  final String       plant;
+  final String       numberActiveMaximo;//listo
+  final String       numberJDE;//listo
+  final String       description1;//listo
+  final String       description2;// listo
+  final String       description3;//listo
+  final String       tAG;//listo
+  final String       location;//listo
+  final String       descriptionLocation;//
+  final String       subRegionCommuneCorregimiento;//listo
+  final String       installation;//listo
+  final String       father;//listo
+  final String       state;//listo
+  final String       iPSIGMA;//listo
+  final String       series;//listo
+  final String       criticalityDescription;//listo
+  final String       operationalNumber;//listo
+  final String       classification;//listo
+  final String       addressInternalLocation;//listo
+  final String       plant;//listo
   final List<String> images;
 
   Activo({
