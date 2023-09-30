@@ -14,8 +14,9 @@ class ActivosNotifier extends StateNotifier<ActivosState> {
     loadNextPage();
   }
 
-
-  
+  Future<void> deleteAll() async {
+    await activosRepository.deleteAll();
+  }
 
   Future<bool> createOrUpdateActive(Activo activo) async {
     try {
@@ -28,8 +29,9 @@ class ActivosNotifier extends StateNotifier<ActivosState> {
         return true;
       }
       state = state.copyWith(
-        activos: state.activos.map((element) => (element.isarId == isarId) ? activo : element).toList()
-      );
+          activos: state.activos
+              .map((element) => (element.isarId == isarId) ? activo : element)
+              .toList());
       return true;
     } catch (e) {
       return false;

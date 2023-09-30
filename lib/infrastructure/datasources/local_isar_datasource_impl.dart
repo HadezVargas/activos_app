@@ -45,4 +45,10 @@ class LocalIsarDatasourceImpl extends ActivosDatasource {
     final isar = await db;
     return isar.activos.where().offset(offset).limit(limit).findAll();
   }
+
+  @override
+  Future<void> deleteAll() async {
+    final isar = await db;
+    isar.activos.where().deleteAll();
+  }
 }

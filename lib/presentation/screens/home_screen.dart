@@ -42,6 +42,34 @@ class HomeScreenState extends ConsumerState {
                 exelGenetator.generateExcelFile(activosState.activos);
               },
               label: const Text('Crear Excel')),
+          const SizedBox(height: 10),
+          FloatingActionButton.extended(
+              heroTag: 'delete',
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Estas seguro?'),
+                    content: const Text(
+                        'Esta acción borrará toda la base de datos de la aplicación'),
+                    actions: [
+                      FilledButton(
+                          onPressed: () async {
+                            await ref
+                                .read(activosProvider.notifier)
+                                .deleteAll();
+                            await ref
+                                .read(activosProvider.notifier)
+                                .loadNextPage();
+                            // ignore: use_build_context_synchronously
+                            context.pop();
+                          },
+                          child: const Text('Aceptar'))
+                    ],
+                  ),
+                );
+              },
+              label: const Text('Borrar base de datos')),
         ],
       ),
     );

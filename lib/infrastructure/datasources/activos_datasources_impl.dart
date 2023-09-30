@@ -22,4 +22,9 @@ class ActivosDatasourcesImpl extends ActivosDatasource {
   Future<List<Activo>> getActivos({int limit = 10, int offset = 0}) {
     throw UnimplementedError();
   }
+  
+  @override
+  Future<void> deleteAll() {
+    throw UnimplementedError();
+  }
 }

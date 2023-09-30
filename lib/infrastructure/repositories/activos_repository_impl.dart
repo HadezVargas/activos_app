@@ -24,4 +24,9 @@ class ActivosRepositoryImpl extends ActivosRepository {
   Future<List<Activo>> getActivos({int limit = 10, int offset = 0}) {
     return datasource.getActivos(limit: limit, offset: offset);
   }
+
+  @override
+  Future<void> deleteAll() {
+    return datasource.deleteAll();
+  }
 }
