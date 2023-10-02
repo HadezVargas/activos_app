@@ -18,6 +18,12 @@ class HomeScreenState extends ConsumerState {
   final ExcelGeneratorService exelGenetator =
       ExcelGeneratorServiceSyncfusionImpl();
   @override
+  void initState() {
+    super.initState();
+    ref.read(activosProvider.notifier).loadNextPage();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final activosState = ref.watch(activosProvider);
     return Scaffold(
@@ -46,30 +52,29 @@ class HomeScreenState extends ConsumerState {
           FloatingActionButton.extended(
               heroTag: 'delete',
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Estas seguro?'),
-                    content: const Text(
-                        'Esta acción borrará toda la base de datos de la aplicación'),
-                    actions: [
-                      FilledButton(
-                          onPressed: () async {
-                            await ref
-                                .read(activosProvider.notifier)
-                                .deleteAll();
-                            await ref
-                                .read(activosProvider.notifier)
-                                .loadNextPage();
-                            // ignore: use_build_context_synchronously
-                            context.pop();
-                          },
-                          child: const Text('Aceptar'))
-                    ],
-                  ),
-                );
+                _customShowDialog(context);
               },
               label: const Text('Borrar base de datos')),
+        ],
+      ),
+    );
+  }
+
+  Future<dynamic> _customShowDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Estas seguro?'),
+        content: const Text(
+            'Esta acción borrará toda la base de datos de la aplicación'),
+        actions: [
+          FilledButton(
+              onPressed: () {
+                ref.read(activosProvider.notifier).deleteAll();
+                ref.read(activosProvider.notifier).clearScreen();
+                context.pop();
+              },
+              child: const Text('Aceptar'))
         ],
       ),
     );

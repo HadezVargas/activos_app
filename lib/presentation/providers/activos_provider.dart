@@ -14,8 +14,13 @@ class ActivosNotifier extends StateNotifier<ActivosState> {
     loadNextPage();
   }
 
-  Future<void> deleteAll() async {
-    await activosRepository.deleteAll();
+  deleteAll() {
+    try {
+      activosRepository.deleteAll();
+      // ignore: empty_catches
+    } catch (e) {
+      // print(e);
+    }
   }
 
   Future<bool> createOrUpdateActive(Activo activo) async {
@@ -36,6 +41,10 @@ class ActivosNotifier extends StateNotifier<ActivosState> {
     } catch (e) {
       return false;
     }
+  }
+
+  clearScreen() {
+    state = state.copyWith(activos: []);
   }
 
   Future loadNextPage() async {

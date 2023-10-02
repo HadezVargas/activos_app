@@ -29,4 +29,9 @@ class ActivosRepositoryImpl extends ActivosRepository {
   Future<void> deleteAll() {
     return datasource.deleteAll();
   }
+
+  @override
+  Future<List<Activo>> getAll() {
+    return datasource.getAll();
+  }
 }

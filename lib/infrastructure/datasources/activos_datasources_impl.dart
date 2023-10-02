@@ -27,4 +27,9 @@ class ActivosDatasourcesImpl extends ActivosDatasource {
   Future<void> deleteAll() {
     throw UnimplementedError();
   }
+  
+  @override
+  Future<List<Activo>> getAll() {
+    throw UnimplementedError();
+  }
 }

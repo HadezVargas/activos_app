@@ -49,6 +49,14 @@ class LocalIsarDatasourceImpl extends ActivosDatasource {
   @override
   Future<void> deleteAll() async {
     final isar = await db;
-    isar.activos.where().deleteAll();
+    await isar.writeTxn(() async {
+      await isar.activos.where().deleteAll();
+    });
+  }
+
+  @override
+  Future<List<Activo>> getAll() async {
+    final isar = await db;
+    return isar.activos.where().findAll();
   }
 }
