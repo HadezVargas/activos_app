@@ -5,6 +5,7 @@ import 'package:activos_app/infrastructure/infrastructure.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../widgets/widgets.dart';
 
@@ -53,6 +54,7 @@ class ActivoScreen extends ConsumerWidget {
                 return;
               }
               showSnackbar(context);
+              context.pop();
             });
           },
           child: const Icon(Icons.save_as_outlined),
@@ -80,7 +82,8 @@ class _ActivoView extends ConsumerWidget {
           child: _ImageGallery(images: activoForm.images),
         ),
         const SizedBox(height: 10),
-        Center(child: Text(activoForm.description1, style: textStyles.titleSmall)),
+        Center(
+            child: Text(activoForm.description1, style: textStyles.titleSmall)),
         const SizedBox(height: 10),
         _ActivoInformation(activo: activo),
       ],
@@ -106,16 +109,18 @@ class _ActivoInformation extends ConsumerWidget {
             isTopField: true,
             label: 'Numero JDE',
             initialValue: activoForm.numberJDE,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onNumberJDEChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onNumberJDEChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Numero MAXIMO',
             initialValue: activoForm.numberActiveMaximo,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onNumberActiveMaximoChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onNumberActiveMaximoChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
@@ -138,24 +143,27 @@ class _ActivoInformation extends ConsumerWidget {
             isTopField: true,
             label: 'Descripción 1',
             initialValue: activoForm.description1,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onDescription1Changed,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onDescription1Changed,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Descripción 2',
             initialValue: activoForm.description2,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onDescription2Changed,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onDescription2Changed,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Descripción 3',
             initialValue: activoForm.description3,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onDescription3Changed,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onDescription3Changed,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
@@ -170,8 +178,9 @@ class _ActivoInformation extends ConsumerWidget {
             isTopField: true,
             label: 'Criticidad',
             initialValue: activoForm.criticalityDescription,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onCriticalityDescriptionChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onCriticalityDescriptionChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
@@ -186,33 +195,35 @@ class _ActivoInformation extends ConsumerWidget {
             isTopField: true,
             label: 'Descripción Localización',
             initialValue: activoForm.descriptionLocation,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onDescriptionLocationChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onDescriptionLocationChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Subregión, comuna, corregimiento ',
             initialValue: activoForm.subRegionCommuneCorregimiento,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onSubRegionCommuneCorregimientoChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onSubRegionCommuneCorregimientoChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Instalación',
             initialValue: activoForm.installation,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onInstallationChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onInstallationChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Padre',
             initialValue: activoForm.father,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onFatherChanged,
+            onChanged:
+                ref.read(activoFormProvider(activo).notifier).onFatherChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
@@ -235,27 +246,29 @@ class _ActivoInformation extends ConsumerWidget {
             isTopField: true,
             label: 'Número operacional',
             initialValue: activoForm.operationalNumber,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onOperationalNumberChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onOperationalNumberChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Clasificación',
             initialValue: activoForm.classification,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onClassificationChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onClassificationChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
             label: 'Dirección localización interna',
             initialValue: activoForm.addressInternalLocation,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onAddressInternalLocationChanged,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onAddressInternalLocationChanged,
           ),
           const SizedBox(height: 15),
-          
           const SizedBox(height: 100),
         ],
       ),
@@ -278,24 +291,23 @@ class _ImageGallery extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       controller: PageController(viewportFraction: 0.7),
       children: images.map((e) {
-              late ImageProvider imageProvider;
-              if (e.startsWith('http')) {
-                imageProvider = NetworkImage(e);
-              } else {
-                imageProvider = FileImage(File(e));
-              }
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  child: FadeInImage(
-                    placeholder: const AssetImage('assets/jar-loading.gif'),
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
-                  )
-              );
-            }).toList(),
+        late ImageProvider imageProvider;
+        if (e.startsWith('http')) {
+          imageProvider = NetworkImage(e);
+        } else {
+          imageProvider = FileImage(File(e));
+        }
+        return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/jar-loading.gif'),
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ));
+      }).toList(),
     );
   }
 }
