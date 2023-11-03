@@ -107,28 +107,19 @@ class _ActivoInformation extends ConsumerWidget {
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
-            label: 'Numero JDE',
-            initialValue: activoForm.numberJDE,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onNumberJDEChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'Numero MAXIMO',
-            initialValue: activoForm.numberActiveMaximo,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onNumberActiveMaximoChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
             label: 'Etiqueta',
             initialValue: activoForm.tAG,
             onChanged:
                 ref.read(activoFormProvider(activo).notifier).onTAGChanged,
+          ),
+          const SizedBox(height: 15),
+          CustomActivoField(
+            isTopField: true,
+            label: 'Numero OW',
+            initialValue: activoForm.numberJDE,
+            onChanged: ref
+                .read(activoFormProvider(activo).notifier)
+                .onNumberJDEChanged,
           ),
           const SizedBox(height: 15),
           CustomActivoField(
@@ -176,23 +167,6 @@ class _ActivoInformation extends ConsumerWidget {
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
-            label: 'Criticidad',
-            initialValue: activoForm.criticalityDescription,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onCriticalityDescriptionChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'Localización',
-            initialValue: activoForm.location,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onLocationChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
             label: 'Descripción Localización',
             initialValue: activoForm.descriptionLocation,
             onChanged: ref
@@ -202,73 +176,11 @@ class _ActivoInformation extends ConsumerWidget {
           const SizedBox(height: 15),
           CustomActivoField(
             isTopField: true,
-            label: 'Subregión, comuna, corregimiento ',
-            initialValue: activoForm.subRegionCommuneCorregimiento,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onSubRegionCommuneCorregimientoChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'Instalación',
-            initialValue: activoForm.installation,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onInstallationChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'Padre',
-            initialValue: activoForm.father,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onFatherChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
             label: 'Estado',
             initialValue: activoForm.estado,
             onChanged:
                 ref.read(activoFormProvider(activo).notifier).onEstadoChanged,
           ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'iPSIGMA',
-            initialValue: activoForm.iPSIGMA,
-            onChanged:
-                ref.read(activoFormProvider(activo).notifier).onIPSIGMAChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'Número operacional',
-            initialValue: activoForm.operationalNumber,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onOperationalNumberChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'Clasificación',
-            initialValue: activoForm.classification,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onClassificationChanged,
-          ),
-          const SizedBox(height: 15),
-          CustomActivoField(
-            isTopField: true,
-            label: 'Dirección localización interna',
-            initialValue: activoForm.addressInternalLocation,
-            onChanged: ref
-                .read(activoFormProvider(activo).notifier)
-                .onAddressInternalLocationChanged,
-          ),
-          const SizedBox(height: 15),
           const SizedBox(height: 100),
         ],
       ),
@@ -290,12 +202,12 @@ class _ImageGallery extends StatelessWidget {
     return PageView(
       scrollDirection: Axis.horizontal,
       controller: PageController(viewportFraction: 0.7),
-      children: images.map((e) {
+      children: images.map((image) {
         late ImageProvider imageProvider;
-        if (e.startsWith('http')) {
-          imageProvider = NetworkImage(e);
+        if (image.startsWith('http')) {
+          imageProvider = NetworkImage(image);
         } else {
-          imageProvider = FileImage(File(e));
+          imageProvider = FileImage(File(image));
         }
         return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),

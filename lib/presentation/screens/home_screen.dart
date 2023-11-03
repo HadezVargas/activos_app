@@ -17,7 +17,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class HomeScreenState extends ConsumerState {
   final ExcelGeneratorService exelGenetator =
-      ExcelGeneratorServiceSyncfusionImpl();
+      ExcelGeneratorServiceSyncfusionImpl(plant: 'generico');
   @override
   void initState() {
     super.initState();
