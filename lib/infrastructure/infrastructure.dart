@@ -6,3 +6,4 @@ export 'mappers/activo_mapper.dart';
 export 'repositories/activos_repository_impl.dart';
 export 'services/camera_gallery_service_impl.dart';
 export 'services/excel_generator_service_syncfusion_impl.dart';
+export 'services/gallery_saver_service_impl.dart';

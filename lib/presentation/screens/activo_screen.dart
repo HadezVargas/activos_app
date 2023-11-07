@@ -22,6 +22,8 @@ class ActivoScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activoState = ref.watch(activoProvider(activoId));
+    final GallerySaverService gallerySaver = GallerySaverServiceImpl();
+    
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -53,6 +55,8 @@ class ActivoScreen extends ConsumerWidget {
               if (!value) {
                 return;
               }
+              
+              
               showSnackbar(context);
               context.pop();
             });

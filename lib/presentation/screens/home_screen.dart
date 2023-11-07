@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../infrastructure/services/excel_generator_service_syncfusion_impl.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   HomeScreenState createState() => HomeScreenState();

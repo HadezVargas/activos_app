@@ -10,7 +10,7 @@ import '../../domain/domain.dart';
 import '../providers/providers.dart';
 
 class ExcelScreen extends ConsumerWidget {
-  const ExcelScreen({Key? key}) : super(key: key);
+  const ExcelScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
