@@ -1,3 +1,3 @@
 abstract class GallerySaverService {
-  Future gallerySaver(List<String> images, String plant);
+  Future gallerySaver(String image, String plant);
 }

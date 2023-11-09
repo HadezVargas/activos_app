@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:activos_app/domain/domain.dart';
 import 'package:activos_app/infrastructure/infrastructure.dart';
+import 'package:activos_app/presentation/providers/plantas_provider.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,8 +23,9 @@ class ActivoScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activoState = ref.watch(activoProvider(activoId));
+    final planta = ref.watch(plantasProvider);
     final GallerySaverService gallerySaver = GallerySaverServiceImpl();
-    
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -37,9 +39,10 @@ class ActivoScreen extends ConsumerWidget {
                   if (photoPath == null) return;
                   ref
                       .read(activoFormProvider(activoState.activo!).notifier)
-                      .onImagesChanged(File(photoPath));
+                      .onImagesChanged(File(photoPath), planta);
+                  gallerySaver.gallerySaver(photoPath, planta);
                 },
-                icon: const Icon(Icons.camera_alt_outlined))
+                icon: const Icon(Icons.camera_alt_outlined)),
           ],
         ),
         body: activoState.isLoading
@@ -55,8 +58,7 @@ class ActivoScreen extends ConsumerWidget {
               if (!value) {
                 return;
               }
-              
-              
+
               showSnackbar(context);
               context.pop();
             });

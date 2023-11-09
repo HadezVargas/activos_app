@@ -6,6 +6,11 @@ class AppRouter {
   static final routes = GoRouter(initialLocation: inicialRoute, routes: [
     GoRoute(
       path: '/',
+      name: 'init',
+      builder: (context, state) => const InitScreen(),
+    ),
+    GoRoute(
+      path: '/home',
       name: 'home',
       builder: (context, state) => const HomeScreen(),
     ),

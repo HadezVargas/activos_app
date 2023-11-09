@@ -51,23 +51,25 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
       sheet.getRangeByIndex(rowIndex, 7).setText(plant);
       sheet.getRangeByIndex(rowIndex, 8).setText(activo.descriptionLocation);
       sheet.getRangeByIndex(rowIndex, 9).setText(activo.state);
-      for (final image in activo.images) {
-        final List<int> bytes = await File(image).readAsBytes();
-        sheet.pictures.addStream(rowIndex, columnIndex, bytes);
-        final Picture picture = sheet.pictures[pictureIndex];
-        picture.height = 100;
-        picture.width = 100;
-        picture.row = rowIndex;
-        picture.column = columnIndex;
-        sheet.getRangeByIndex(rowIndex, columnIndex).columnWidth = 14.0;
-        columnIndex++;
-        pictureIndex++;
-      }
-      final Range range = sheet.getRangeByIndex(rowIndex, columnIndex);
-      range.autoFit();
-      range.rowHeight = 88;
+      sheet.getRangeByIndex(rowIndex, 10).setText(activo.images.join(', '));
+      
+      // for (final image in activo.images) {
+      //   final List<int> bytes = await File(image).readAsBytes();
+      //   sheet.pictures.addStream(rowIndex, columnIndex, bytes);
+      //   final Picture picture = sheet.pictures[pictureIndex];
+      //   picture.height = 100;
+      //   picture.width = 100;
+      //   picture.row = rowIndex;
+      //   picture.column = columnIndex;
+      //   sheet.getRangeByIndex(rowIndex, columnIndex).columnWidth = 14.0;
+      //   columnIndex++;
+      //   pictureIndex++;
+      // }
+      // final Range range = sheet.getRangeByIndex(rowIndex, columnIndex);
+      // range.autoFit();
+      // range.rowHeight = 88;
       rowIndex++;
-      columnIndex = 21;
+      // columnIndex = 21;
     }
 
     final List<int> bytes = workbook.saveAsStream();

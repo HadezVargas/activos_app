@@ -82,12 +82,14 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
   void onAddressInternalLocationChanged(String addressInternalLocation) =>
       state = state.copyWith(addressInternalLocation: addressInternalLocation);
   void onPlantChanged(String plant) => state = state.copyWith(plant: plant);
-  void onImagesChanged(File photoPath) async {
+  void onImagesChanged(File photoPath, String planta) async {
     const uuid = Uuid();
     final appDir = await getApplicationDocumentsDirectory();
+    final imageDir = Directory('${appDir.path}/$planta');
+    await imageDir.create(recursive: true);
     final fileName = "${uuid.v1()}.jpg";
     state = state.copyWith(numberOfImage: state.numberOfImage + 1);
-    final savedImage = await photoPath.copy('${appDir.path}/$fileName');
+    final savedImage = await photoPath.copy('${appDir.path}/$planta/$fileName');
     state = state.copyWith(images: [...state.images, savedImage.path]);
   }
 

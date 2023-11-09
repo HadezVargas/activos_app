@@ -1,4 +1,5 @@
 import 'package:activos_app/domain/domain.dart';
+import 'package:activos_app/presentation/providers/plantas_provider.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
@@ -6,8 +7,9 @@ import 'package:isar/isar.dart';
 final activoProvider = StateNotifierProvider.autoDispose
     .family<ActivoNotifier, ActivoState, String>((ref, activoId) {
   final activosRepository = ref.watch(activosRepositoryProvider);
+  final planta = ref.watch(plantasProvider);
   return ActivoNotifier(
-      activosRepository: activosRepository, activoId: activoId);
+      activosRepository: activosRepository, activoId: activoId, planta:planta);
 });
 
 class ActivoNotifier extends StateNotifier<ActivoState> {
@@ -15,7 +17,8 @@ class ActivoNotifier extends StateNotifier<ActivoState> {
   ActivoNotifier({
     required this.activosRepository,
     required String activoId,
-  }) : super(ActivoState(id: activoId)) {
+    required String planta,
+  }) : super(ActivoState(id: activoId, planta: planta)) {
     loadActivo();
   }
 
@@ -41,7 +44,7 @@ class ActivoNotifier extends StateNotifier<ActivoState> {
         operationalNumber: '',
         classification: '',
         addressInternalLocation: '',
-        plant: '',
+        plant: state.planta,
         images: const []);
   }
 
@@ -64,22 +67,26 @@ class ActivoNotifier extends StateNotifier<ActivoState> {
 
 class ActivoState {
   final String id;
+  final planta;
   final Activo? activo;
   final bool isLoading;
 
   ActivoState({
     required this.id,
+    required this.planta,
     this.activo,
     this.isLoading = true,
   });
 
   ActivoState copyWith({
     String? id,
+    String? planta,
     Activo? activo,
     bool? isLoading,
   }) =>
       ActivoState(
         id: id ?? this.id,
+        planta: planta ?? this.planta,
         activo: activo ?? this.activo,
         isLoading: isLoading ?? this.isLoading,
       );

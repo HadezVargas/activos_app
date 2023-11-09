@@ -1,4 +1,5 @@
 import 'package:activos_app/domain/domain.dart';
+import 'package:activos_app/presentation/providers/plantas_provider.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:activos_app/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class HomeScreenState extends ConsumerState {
-  final ExcelGeneratorService exelGenetator =
-      ExcelGeneratorServiceSyncfusionImpl(plant: 'generico');
   @override
   void initState() {
     super.initState();
@@ -33,9 +32,11 @@ class HomeScreenState extends ConsumerState {
   Widget build(BuildContext context) {
     final activosState = ref.watch(activosProvider);
     final activosExcel = ref.read(activosRepositoryProvider).getAll();
+    final planta = ref.watch(plantasProvider);
+    final ExcelGeneratorService exelGenetator = ExcelGeneratorServiceSyncfusionImpl(plant: planta);
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('ACTIVOS')),
+        title: Center(child: Text('Activos $planta')),
       ),
       body: const _HomeView(),
       floatingActionButton: Column(
