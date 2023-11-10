@@ -33,7 +33,8 @@ class HomeScreenState extends ConsumerState {
     final activosState = ref.watch(activosProvider);
     final activosExcel = ref.read(activosRepositoryProvider).getAll();
     final planta = ref.watch(plantasProvider);
-    final ExcelGeneratorService exelGenetator = ExcelGeneratorServiceSyncfusionImpl(plant: planta);
+    final ExcelGeneratorService exelGenetator =
+        ExcelGeneratorServiceSyncfusionImpl(plant: planta);
     return Scaffold(
       appBar: AppBar(
         title: Center(child: Text('Activos $planta')),

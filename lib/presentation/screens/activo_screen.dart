@@ -24,7 +24,6 @@ class ActivoScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activoState = ref.watch(activoProvider(activoId));
     final planta = ref.watch(plantasProvider);
-    final GallerySaverService gallerySaver = GallerySaverServiceImpl();
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -40,7 +39,6 @@ class ActivoScreen extends ConsumerWidget {
                   ref
                       .read(activoFormProvider(activoState.activo!).notifier)
                       .onImagesChanged(File(photoPath), planta);
-                  gallerySaver.gallerySaver(photoPath, planta);
                 },
                 icon: const Icon(Icons.camera_alt_outlined)),
           ],

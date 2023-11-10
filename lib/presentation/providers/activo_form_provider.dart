@@ -1,24 +1,27 @@
 import 'dart:io';
 
 import 'package:activos_app/domain/domain.dart';
+import 'package:activos_app/presentation/providers/plantas_provider.dart';
 import 'package:activos_app/presentation/providers/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:uuid/uuid.dart';
 
 final activoFormProvider = StateNotifierProvider.autoDispose
     .family<ActivoFormNotifier, ActivoFormState, Activo>((ref, activo) {
   final createUpdateCallbak =
       ref.watch(activosProvider.notifier).createOrUpdateActive;
+  final planta = ref.watch(plantasProvider);
   return ActivoFormNotifier(
-      activo: activo, onSubmitCallback: createUpdateCallbak);
+      activo: activo, onSubmitCallback: createUpdateCallbak, planta: planta);
 });
 
 class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
   ActivoFormNotifier({
     required this.onSubmitCallback,
     required Activo activo,
+    required String planta,
   }) : super(ActivoFormState(
           isarId: activo.isarId,
           criticisms: activo.criticisms,
@@ -83,13 +86,14 @@ class ActivoFormNotifier extends StateNotifier<ActivoFormState> {
       state = state.copyWith(addressInternalLocation: addressInternalLocation);
   void onPlantChanged(String plant) => state = state.copyWith(plant: plant);
   void onImagesChanged(File photoPath, String planta) async {
-    const uuid = Uuid();
+    final time = DateTime.now();
     final appDir = await getApplicationDocumentsDirectory();
     final imageDir = Directory('${appDir.path}/$planta');
     await imageDir.create(recursive: true);
-    final fileName = "${uuid.v1()}.jpg";
+    final fileName = "${planta}_$time.jpg";
     state = state.copyWith(numberOfImage: state.numberOfImage + 1);
     final savedImage = await photoPath.copy('${appDir.path}/$planta/$fileName');
+    ImageGallerySaver.saveFile(photoPath.path, name: fileName);
     state = state.copyWith(images: [...state.images, savedImage.path]);
   }
 

@@ -28,6 +28,7 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
       'Planta',
       'Localizacion',
       'Estado',
+      'Imagenes'
     ];
 
     for (var i = 0; i < hedersLabels.length; i++) {
@@ -39,8 +40,7 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
     }
 
     int rowIndex = 2;
-    int columnIndex = 10;
-    int pictureIndex = 0;
+    int columIndex = 10;
     for (final activo in activos) {
       sheet.getRangeByIndex(rowIndex, 1).setText(activo.tAG);
       sheet.getRangeByIndex(rowIndex, 2).setText(activo.numberJDE);
@@ -52,24 +52,13 @@ class ExcelGeneratorServiceSyncfusionImpl extends ExcelGeneratorService {
       sheet.getRangeByIndex(rowIndex, 8).setText(activo.descriptionLocation);
       sheet.getRangeByIndex(rowIndex, 9).setText(activo.state);
       sheet.getRangeByIndex(rowIndex, 10).setText(activo.images.join(', '));
-      
-      // for (final image in activo.images) {
-      //   final List<int> bytes = await File(image).readAsBytes();
-      //   sheet.pictures.addStream(rowIndex, columnIndex, bytes);
-      //   final Picture picture = sheet.pictures[pictureIndex];
-      //   picture.height = 100;
-      //   picture.width = 100;
-      //   picture.row = rowIndex;
-      //   picture.column = columnIndex;
-      //   sheet.getRangeByIndex(rowIndex, columnIndex).columnWidth = 14.0;
-      //   columnIndex++;
-      //   pictureIndex++;
-      // }
-      // final Range range = sheet.getRangeByIndex(rowIndex, columnIndex);
-      // range.autoFit();
-      // range.rowHeight = 88;
+      for (var image in activo.images) {
+        final list = image.split('/');
+        sheet.getRangeByIndex(rowIndex, columIndex).setText(list.last);
+        columIndex++;
+      }
+      columIndex = 10;
       rowIndex++;
-      // columnIndex = 21;
     }
 
     final List<int> bytes = workbook.saveAsStream();

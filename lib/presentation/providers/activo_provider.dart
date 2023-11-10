@@ -67,7 +67,7 @@ class ActivoNotifier extends StateNotifier<ActivoState> {
 
 class ActivoState {
   final String id;
-  final planta;
+  final String planta;
   final Activo? activo;
   final bool isLoading;
 
